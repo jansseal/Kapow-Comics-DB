@@ -1,0 +1,139 @@
+<html>
+<head>
+    <title>Kapow! Sales</title> 
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>  
+
+<body>
+    <header>
+        <h1>Kapow! Comics - Sales</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="customers.html">Customers</a>
+        <a href="suppliers.html">Suppliers</a>
+        <a href="products.html">Products</a>
+        <a href="sales.html">Sales</a>
+        <a href="salesDetails.html">Sales Details</a>   
+    </nav>
+    <main>
+        <div class="main-table" id="browse">
+            <h3>Browse Sales Record</h3>
+            <table cellpadding="5">
+                <tr>
+                    <th>ID</th>
+                    <th>Revenue</th>
+                    <th>Date & Time</th>
+                    <th>Customer Name</th>
+                    <th></th>
+                </tr>
+
+                <tr>
+                    <td align="right">100001</td>
+                    <td>38.96</td>
+                    <td>2023-07-17 09:52:33</td>
+                    <td align="right">Aurora Collins</td>
+                    <td><button>Delete</button></td>
+                </tr>
+
+                <tr>
+                    <td align="right">100002</td>
+                    <td>102.09</td>
+                    <td>2023-07-17 10:01:54</td>
+                    <td align="right">John Smith</td>
+                    <td><button>Delete</button></td>
+                </tr>
+
+                <tr>
+                    <td align="right">100003</td>
+                    <td>58.41</td>
+                    <td>2023-07-17 10:15:00</td>
+                    <td align="right">Janine McCormack</td>
+                    <td><button>Delete</button></td>
+                </tr>
+
+                <tr>
+                    <td align="right">100004</td>
+                    <td>93.55</td>
+                    <td>2023-07-17 11:47:36</td>
+                    <td align="right">Darren Walker</td>
+                    <td><button>Delete</button></td>
+                </tr>
+                
+            </table>
+        </div>
+
+        <div class="section">
+            <h3 class="h3-add">Add New Sale</h3>
+            <form id="add-product-form">
+                <table class="sub-table">
+                    <tr>
+                       <td><label for="input-sale_revenue"> Revenue Total: </label></td> 
+                       <td><input type="text" name="input-sale_revenue" id="input-sale_revenue" required></td>
+                       <td>*Required</td>
+                    </tr>
+                    <tr>
+                        <td><label for="customer_id">Select a Customer: </label></td>
+                        <td><select name="customer_id" id="customer_id" required>
+                            <option value="">Select a Customer</option>
+                            <option value="1001">John Smith</option>
+                            <option value="1002">Aurora Collins</option>
+                            <option value="1003">Darren Walker</option>
+                            <option value="1004">Janine McCormack</option>
+                        </select></td>
+                        <td>*Required</td>
+                     </tr>
+                </table>
+                <div class="form-btns">
+                    <input class="btn" type="submit" id="addSale" value="Add Sale">
+                    <input class="btn" type="button" value="Cancel">
+                </div>
+            </form>
+        </div>
+
+        <div class="section">
+            <h3 class="h3-update">Update Sale Details</h3>
+            <form id="update-sale-form">
+                <table class="sub-table">
+                    <tr>
+                        <td><label for="sale_id">Select a Sale: </label></td>
+                        <td><select name="sale_id" id="sale_id" required>
+                            <option value="">Select a Sale</option>
+                            <option value="100001">100001</option>
+                            <option value="100002">100002</option>
+                            <option value="100003">100003</option>
+                            <option value="100004">100004</option>
+                        </select></td>
+                        <td>*Required</td>
+                    </tr>
+                    <tr>
+                        <td><label for="update-sale_revenue"> Revenue Total: </label></td> 
+                        <td><input type="text" name="update-sale_revenue" id="update-sale_revenue" required></td>
+                        <td>*Required</td>
+                    </tr>
+                    <tr>
+                        <td><label for="update-sale-datetime"> Sale Date & Time (YYYY-MM-DD HH:MM:SS): </label></td>
+                        <td><input type="datetime" name="update-sale-datetime" id="update-sale-datetime" required></td>
+                        <td>*Required</td>
+                    </tr>
+                    <tr>
+                        <td><label for="customer_id">Select a Customer: </label></td>
+                        <td><select name="customer_id" id="customer_id" required>
+                            <option value="">Select a Customer</option>
+                            <option value="1001">John Smith</option>
+                            <option value="1002">Aurora Collins</option>
+                            <option value="1003">Darren Walker</option>
+                            <option value="1004">Janine McCormack</option>
+                        </select></td>
+                        <td>*Required</td>
+                    </tr>
+                </table>
+                <div class="form-btns">
+                    <input class="btn" type="submit" id="updateSale" value="Save Updates">
+                    <input class="btn" type="button" value="Cancel">
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
