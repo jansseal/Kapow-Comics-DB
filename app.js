@@ -72,6 +72,67 @@ app.post('/add-saleDetails-ajax', function(req, res)
             }
         })
     });
+
+app.delete('/delete-person-ajax/', function(req,res,next){
+  let data = req.body;
+  let personID = parseInt(data.sale_id. data.product_id);
+  let deleteSaleDetails= `DELETE FROM Sales_has_products WHERE sale = ?`;
+
+
+        // Run the 1st query
+        db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+                // Run the second query
+                db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.sendStatus(204);
+                    }
+                })
+            }
+})});
+
+app.delete('/delete-saleDetails-ajax/', function(req,res,next){
+    let data = req.body;
+    let saleID = parseInt(data.sale_id);
+    let productID = parseINT(data.product_id)
+    let deleteSaleDetails= `DELETE FROM Sales_has_products WHERE sale_id = ? AND product_id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteSaleDetails, [saleID, productID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteSaleDetails, [saleID, productID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
 /*
     LISTENER
 */

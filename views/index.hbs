@@ -1,3 +1,5 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <!-- index.hbs -->
 <h1>The server is running!</h1>
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
@@ -15,6 +17,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -23,11 +26,12 @@
 
         {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.ID}}>
             <td>{{this.sale_id}}</td>
             <td>{{this.product_id}}</td>
             <td>{{this.unit_price}}</td>
             <td>{{this.quantity}}</td>
+            <td><button onclick="deleteSaleDetails({{this.ID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -54,3 +58,4 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_saleDetails.js"></script>
+<script src="./js/delete_saleDetails.js"></script>
