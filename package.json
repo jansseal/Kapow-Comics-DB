@@ -1,0 +1,16 @@
+{
+  "name": "cs340",
+  "version": "1.0.0",
+  "description": "Portfolio Project for CS340 (Intro to Databases)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Janssen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1"
+  }
+}
