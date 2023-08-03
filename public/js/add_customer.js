@@ -20,9 +20,9 @@ addPersonForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        name: nameValue,
-        email: emailValue,
-        phone: phoneValue
+        customer_name: nameValue,
+        customer_email: emailValue,
+        customer_phone: phoneValue
     }
     
     // Setup our AJAX request
