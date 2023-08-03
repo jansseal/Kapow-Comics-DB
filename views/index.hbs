@@ -2,7 +2,7 @@
 <h1>The server is running!</h1>
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
 {{!-- Create a table --}}
-<table id="customer-table">
+<table id="salesDetails-table">
 
     {{!-- Header section --}}
     <thead>
@@ -21,13 +21,13 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the customer_id, customer_name, customer_email, and customer_phone, in order --}}
+        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.customer_id}}</td>
-            <td>{{this.customer_name}}</td>
-            <td>{{this.customer_email}}</td>
-            <td>{{this.customer_phone}}</td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.product_id}}</td>
+            <td>{{this.unit_price}}</td>
+            <td>{{this.quantity}}</td>
         </tr>
         {{/each}}
     </tbody>
@@ -35,19 +35,22 @@
 
 {{!-- Form to add a record to the table  --}}
 <h2>Adding Data with AJAX</h2>
-<p>To add a new customer, please enter their information below and click 'Submit'!</p>
-<form id="add-customer-form-ajax">
-    <label for="input-name">First and Last Name: </label>
-    <input type="text" name="input-name" id="input-name">
+<p>To add new sale details, please enter the information below and click 'Submit'!</p>
+<form id="add-saleDetails-form-ajax">
+    <label for="input-sale_id">Sale ID: </label>
+    <input type="text" name="input-sale_id" id="input-sale_id">
     
-    <label for="input-email">Email Address: </label>
-    <input type="text" name="input-email" id="input-email">
+    <label for="input-product_id">Product ID: </label>
+    <input type="number" name="input-product_id" id="input-product_id">
 
-    <label for="input-phone">Phone Number: </label>
-    <input type="number" name="input-phone" id="input-phone">
+    <label for="input-price">Unit Price: </label>
+    <input type="number" name="input-price" id="input-price">
+
+    <label for="input-quantity">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity">
 
     <input type="submit">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_customer.js"></script>
+<script src="./js/add_saleDetails.js"></script>

@@ -18,22 +18,29 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
     ROUTES
 */
 app.get('/', function(req, res)
-    {  
-        let query1 = "SELECT * FROM Customers;";               // Define our query
+    {
+        let query1 = "SELECT * FROM Sales_has_products;";               // Define our query
+        let query2 = "SELECT * FROM Products;";
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-            res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query 
+            let salesDetails = rows;
 
-app.post('/add-customer-ajax', function(req, res) 
+            db.pool.query(query2, (error, rows, fields) => {
+
+                let products = rows;
+                return res.render('index', {data: salesDetails, products: products});
+        });                         
+    })});                                                    
+                                                       
+
+app.post('/add-saleDetails-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO Customers (customer_name, customer_email, customer_phone) VALUES ('${data.customer_name}', '${data.customer_email}', ${data.customer_phone})`;
+        query1 = `INSERT INTO Sales_has_products (sale_id, product_id, unit_price, quantity) VALUES ('${data.sale_id}', '${data.product_id}', '${data.unit_price}', '${data.quantity}')`;
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
@@ -46,7 +53,7 @@ app.post('/add-customer-ajax', function(req, res)
             else
             {
                 // If there was no error, perform a SELECT * on bsg_people
-                query2 = `SELECT * FROM Customers;`;
+                query2 = `SELECT * FROM Sales_has_products;`;
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400
