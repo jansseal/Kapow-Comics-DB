@@ -78,14 +78,16 @@ ALTER TABLE `Sales` AUTO_INCREMENT=100001;
 -- Table `Sales_has_products`
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE `Sales_has_products` (
-  `sale_id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `unit_price` decimal(8,2) NOT NULL,
   `quantity` int(11) NOT NULL,
-  PRIMARY KEY (`sale_id`, `product_id`),
+  PRIMARY KEY (`invoice_id`),
   CONSTRAINT `FK_Sales_has_products_product_id` FOREIGN KEY (`product_id`) REFERENCES `Products` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Sales_has_products_sale_id` FOREIGN KEY (`sale_id`) REFERENCES `Sales` (`sale_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 ALTER TABLE `Sales_has_products` AUTO_INCREMENT=1000001;
 

@@ -1,6 +1,6 @@
-function deleteSaleDetails(sale_id, product_id) {
+function deleteSaleDetails(invoice_id) {
     let data = {
-      id: sale_id, product_id
+      invoice_id: invoice_id
     };
   
     var xhttp = new XMLHttpRequest();
@@ -12,7 +12,7 @@ function deleteSaleDetails(sale_id, product_id) {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
 
             // Add the new data to the table
-            deleteRow(sale_id, product_id);
+            deleteRow(invoice_id);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
@@ -23,10 +23,10 @@ function deleteSaleDetails(sale_id, product_id) {
     xhttp.send(JSON.stringify(data));
 }
   
-  function deleteRow(sale_id, product_id){
+  function deleteRow(invoice_id){
       let table = document.getElementById("salesDetails-table");
       for (let i = 0, row; row = table.rows[i]; i++) {
-         if (table.rows[i].getAttribute("data-value") == sale_id, product_id) {
+         if (table.rows[i].getAttribute("data-value") == invoice_id) {
               table.deleteRow(i);
               break;
          }
