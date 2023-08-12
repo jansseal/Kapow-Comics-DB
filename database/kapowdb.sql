@@ -1,7 +1,7 @@
 -- Class: CS340 INTRODUCTION TO DATABASES
 -- Assignment: Project Step 3 Final Version
 -- Group 90: Shawnpal Singh Kahlon and Alexandra Janssen
--- Due Date: Monday 31 July 2023
+-- Due Date: Monday 14 August 2023
 
 -- -----------------------------------------------------
 -- Schema Kapow_Comics_DB
@@ -23,8 +23,6 @@ CREATE OR REPLACE TABLE `Customers` (
   UNIQUE KEY `customer_phone` (`customer_phone`)
 );
 
-ALTER TABLE `Customers` AUTO_INCREMENT=1001;
-
 -- -----------------------------------------------------
 -- Table `Suppliers`
 -- -----------------------------------------------------
@@ -41,8 +39,6 @@ CREATE OR REPLACE TABLE `Suppliers` (
   UNIQUE KEY `supplier_phone` (`supplier_phone`)
 );
 
-ALTER TABLE `Suppliers` AUTO_INCREMENT=101;
-
 -- -----------------------------------------------------
 -- Table `Products`
 -- -----------------------------------------------------
@@ -57,8 +53,6 @@ CREATE OR REPLACE TABLE `Products` (
   CONSTRAINT `Products_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `Suppliers` (`supplier_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-ALTER TABLE `Products` AUTO_INCREMENT=10001;
-
 -- -----------------------------------------------------
 -- Table `Sales`
 -- -----------------------------------------------------
@@ -71,8 +65,6 @@ CREATE OR REPLACE TABLE `Sales` (
   UNIQUE KEY `sale_id` (`sale_id`),
   CONSTRAINT `Sales_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `Customers` (`customer_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 );
-
-ALTER TABLE `Sales` AUTO_INCREMENT=100001;
 
 -- -----------------------------------------------------
 -- Table `Sales_has_products`
@@ -87,9 +79,6 @@ CREATE OR REPLACE TABLE `Sales_has_products` (
   CONSTRAINT `FK_Sales_has_products_product_id` FOREIGN KEY (`product_id`) REFERENCES `Products` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Sales_has_products_sale_id` FOREIGN KEY (`sale_id`) REFERENCES `Sales` (`sale_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
-ALTER TABLE `Sales_has_products` AUTO_INCREMENT=1000001;
 
 -- -----------------------------------------------------
 -- Data Insertion
@@ -111,24 +100,24 @@ VALUES ('Inked Enigma Enterprises', 'sales@inkedenigma.com', '702-762-8787', 'La
 
 -- Create products with supplier_id (FK)
 INSERT INTO `Products` (`product_name`, `product_price`, `product_type`, `supplier_id`) 
-VALUES ('“Watchmen”', 35.00, 'book', 103),
-('Limited Edition “Batman” Statue ', 150.00, 'merchandise', 104),
-('Retro “Spider-Man” Action Figure', 30.00, 'merchandise', 102),
-('“Superman #75”', 50.00, 'book', 104),
-('“X-Men #1”', 200.00, 'book', 101);
+VALUES ('“Watchmen”', 35.00, 'book', 3),
+('Limited Edition “Batman” Statue ', 150.00, 'merchandise', 4),
+('Retro “Spider-Man” Action Figure', 30.00, 'merchandise', 2),
+('“Superman #75”', 50.00, 'book', 4),
+('“X-Men #1”', 200.00, 'book', 1);
 
 -- Create sales records with customer_id (FK)
 INSERT INTO `Sales` (`sale_revenue`, `sale_date`, `customer_id`) 
-VALUES (38.96, '2023-07-17 09:52:33', 1002),
-(102.09, '2023-07-17 10:01:54', 1001),
-(58.41, '2023-07-17 10:15:00', 1004),
-(93.55, '2023-07-17 11:47:36', 1003);
+VALUES (38.96, '2023-07-17 09:52:33', 2),
+(102.09, '2023-07-17 10:01:54', 1),
+(58.41, '2023-07-17 10:15:00', 4),
+(93.55, '2023-07-17 11:47:36', 3);
 
 -- Specify which products were purchased as a part of one sale, facilitate M:N relationship
 INSERT INTO `Sales_has_products` (`sale_id`, `product_id`, `unit_price`, `quantity`) 
-VALUES (100002, 10001, 34.55, 1),
-(100002, 10004, 50.00, 1),
-(100002, 10003, 32.99, 2);
+VALUES (2, 1, 34.55, 1),
+(2, 4, 50.00, 1),
+(2, 3, 32.99, 2);
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
