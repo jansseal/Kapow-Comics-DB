@@ -1,138 +1,44 @@
-<html>
-<head>
-    <title>Kapow! Customers</title> 
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<body>
-    <header>
-        <h1>Kapow! Comics - Customers</h1>
-    </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="customers.html">Customers</a>
-        <a href="suppliers.html">Suppliers</a>
-        <a href="products.html">Products</a>
-        <a href="sales.html">Sales</a>
-        <a href="salesDetails.html">Sales Details</a>   
-    </nav>
-    <main>
-        <div class="main-table" id="browse">
-            <h3>Browse Customers</h3>
-            <table cellpadding="5">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td align="right">1001</td>
-                    <td>John Smith</td>
-                    <td>jsmith@gmail.com</td>
-                    <td align="right">751-830-4849</td>
-                    <td><button>Delete</button></td>
-                </tr>
-                
-                <tr>
-                    <td align="right">1002</td>
-                    <td>Aurora Collins</td>
-                    <td>acollins@yahoo.com</td>
-                    <td align="right">401-111-2345</td>
-                    <td><button>Delete</button></td>
-                </tr>
-                    
-                <tr>
-                    <td align="right">1003</td>
-                    <td>Darren Walker</td>
-                    <td>dwalker@gmail.com</td>
-                    <td align="right">630-485-1000</td>
-                    <td><button>Delete</button></td>
-                </tr>
-                    
-                <tr>
-                    <td align="right">1004</td>
-                    <td>Janine McCormack</td>
-                    <td>janinemc@yahoo.com</td>
-                    <td align="right">314-261-7543</td>
-                    <td><button>Delete</button></td>
-                </tr>
-            </table>
-        </div>
+<header>
+    <h1>Kapow! Comics - Customers</h1>
+</header>
+<nav>
+    <a href="customers.hbs">Customers</a>
+    <a href="salesDetails.hbs">Sales Details</a>
+</nav>
 
-        <div class="section">
-            <h3>Search Customer</h3>
-            <form id="search-customer-form">
-                <table class="sub-table">
-                    <tr>
-                        <td><label for="input-customer_name">Search Customer Name: </label></td>
-                        <td><input type="text" name="customer_name" id="input-customer_name"></td>
-                    </tr>
-                </table>
-                <div class="form-btns">
-                    <input class="btn" type="submit" value="Search">
-                </div>
-            </form>
-        </div>
+{{!-- Create a table --}}
+<table id="customers-table">
 
-        <div class="section">
-            <h3 class="h3-add">Add New Customer</h3>
-            <form id="add-customer-form">
-                  <table class="sub-table">
-                    <tr>
-                       <td><label for="input-customer_name"> Name: </label></td> 
-                       <td><input type="text" name="input-customer_name" id="input-customer_name" required></td>
-                       <td>*Required</td>
-                    </tr>
-                    <tr>
-                        <td><label for="input-customer_email"> Email Address: </label></td> 
-                        <td><input type="text" name="input-customer_email" id="input-customer_email" required></td>
-                        <td>*Required</td>
-                     </tr>
-                     <tr>
-                        <td><label for="input-customer_phone"> Phone Number: </label></td> 
-                        <td><input type="text" name="input-customer_phone" id="input-customer_phone"></td>
-                     </tr>
-                </table>
-                <div class="form-btns">
-                    <input class="btn" type="submit" id="addCustomer" value="Add Customer">
-                    <input class="btn" type="button" value="Cancel">
-                </div>
-            </form>
-        </div>
+    {{!-- Header section --}}
+    <thead>
 
-        <div class="section">
-            <h3 class="h3-update">Update Customer Details</h3>
-            <form id="update-product-form">
-                  <table class="sub-table">
-                    <tr>
-                        <td><label for="customer_id">Select a Customer: </label></td>
-                        <td><select name="customer_id" id="customer_id" required>
-                            <option value="">Select a Customer</option>
-                            <option value="1001">John Smith</option>
-                            <option value="1002">Aurora Collins</option>
-                            <option value="1003">Darren Walker</option>
-                            <option value="1004">Janine McCormack</option>
-                        </select></td>
-                        <td>*Required</td>
-                     </tr>
-                    <tr>
-                        <td><label for="update-customer_email"> Email Address: </label></td> 
-                        <td><input type="text" name="update-customer_email" id="update-customer_email" required></td>
-                        <td>*Required</td>
-                     </tr>
-                     <tr>
-                        <td><label for="update-customer_phone"> Phone Number: </label></td> 
-                        <td><input type="text" name="update-customer_phone" id="update-customer_phone"></td>
-                     </tr>
-                </table>
-                <div class="form-btns">
-                    <input class="btn" type="submit" id="updateCustomer" value="Save Updates">
-                  <input class="btn" type="button" value="Cancel">
-                </div>
-            </form>
-        </div>
-    </main>
-</body>
-</html>
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
+        {{#each data}}
+        <tr data-value={{this.customer_id}}>
+            <td>{{this.customer_id}}</td>
+            <td>{{this.customer_name}}</td>
+            <td>{{this.customer_email}}</td>
+            <td>{{this.customer_phone}}</td>
+            <td><button onclick="deleteCustomer({{this.customer_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+        
+    </tbody>
+</table>

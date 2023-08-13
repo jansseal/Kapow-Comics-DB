@@ -57,7 +57,7 @@ app.get('/', function(req, res)
 
 
 
-                return res.render('index', {data: salesDetails, products: products});
+                return res.render('salesDetails', {data: salesDetails, products: products});
         });                         
     })
 });                                                    
