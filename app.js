@@ -18,8 +18,13 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
     ROUTES
 */
 
-
 app.get('/', function(req, res)
+    {
+        return res.render('index')
+    });
+
+
+app.get('/salesDetails', function(req, res)
     {
         let query1;             // Define our query
 
@@ -60,7 +65,17 @@ app.get('/', function(req, res)
                 return res.render('salesDetails', {data: salesDetails, products: products});
         });                         
     })
-});                                                    
+});  
+
+app.get('/customers', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Customers;";               // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            res.render('customers', {data: rows});                  // Render the customers.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    }); 
                                                        
 
 app.post('/add-saleDetails-ajax', function(req, res) 
