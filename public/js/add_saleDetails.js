@@ -73,14 +73,15 @@ addRowToTable = (data) => {
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
+    let idCell = document.createElement("TD");
     let sidCell = document.createElement("TD");
     let pidCell = document.createElement("TD");
     let priceCell = document.createElement("TD");
     let quantityCell = document.createElement("TD");
-
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
+    idCell.innerText = newRow.invoice_id;
     sidCell.innerText = newRow.sale_id;
     pidCell.innerText = newRow.product_id;
     priceCell.innerText = newRow.unit_price;
@@ -94,6 +95,7 @@ addRowToTable = (data) => {
     
 
     // Add the cells to the row 
+    row.appendChild(idCell);
     row.appendChild(sidCell);
     row.appendChild(pidCell);
     row.appendChild(priceCell);
@@ -105,3 +107,4 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 }
+

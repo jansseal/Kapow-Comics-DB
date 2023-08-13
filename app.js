@@ -6,7 +6,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
-PORT        = 36965;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 36999;                 // Set a port number at the top so it's easy to change in the future
 var db = require('./database/db-connector');
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
@@ -44,6 +44,18 @@ app.get('/', function(req, res)
 
                 let products = rows;
 
+                let productmap = {}
+                products.map(product => {
+                    let id = parseInt(product.product_id, 10);
+                    productmap[id] = product["product_name"];
+            })
+
+            // Overwrite the homeworld ID with the name of the planet in the people object
+                salesDetails = salesDetails.map(salesDetails => {
+                    return Object.assign(salesDetails, {product_id: productmap[salesDetails.product_id]})
+            })
+
+
 
                 return res.render('index', {data: salesDetails, products: products});
         });                         
@@ -55,9 +67,13 @@ app.post('/add-saleDetails-ajax', function(req, res)
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
+        let sale_id = parseInt(data['input-sale_id']);
+        let product_id = parseInt(data['input-product_id']);
+        let unit_price = parseInt(data['input-price']);
+        let quantity = parseInt(data['input-quantity']);
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO Sales_has_products (sale_id, product_id, unit_price, quantity) VALUES ('${data.sale_id}', '${data.product_id}', '${data.unit_price}', '${data.quantity}')`;
+        query1 = `INSERT INTO Sales_has_products (sale_id, product_id, unit_price, quantity) VALUES (${sale_id}, ${product_id}, ${unit_price}, ${quantity})`;
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
@@ -94,7 +110,7 @@ app.post('/add-saleDetails-ajax', function(req, res)
     LISTENER
 */
 
-app.delete('/delete-saleDetails-ajax/', function(req,res,next){
+app.delete('/delete-saleDetails-ajax', function(req,res,next){
     let data = req.body;
     let invoice_id = parseInt(data.invoice_id);
     let deleteSaleDetails= `DELETE FROM Sales_has_products WHERE invoice_id = ?`;
@@ -123,6 +139,48 @@ app.delete('/delete-saleDetails-ajax/', function(req,res,next){
                   })
               }
   })});
+
+  app.put('/put-invoice-ajax', function(req, res, next) {
+    let data = req.body;
+
+    let invoiceId = parseInt(data.invoice_id);
+    let saleId = parseInt(data.sale_id);
+    let productId = parseInt(data.product_id);
+    let unitPrice = parseInt(data.unit_price);
+    let quantity = parseInt(data.quantity);
+
+    console.log("Parsed values:",invoiceId,saleId, productId, unitPrice, quantity)
+
+
+    // Query to update the Sales_has_products table based on the invoice_id
+    let queryUpdateSaleDetails = `UPDATE Sales_has_products 
+                                  SET sale_id = ?, product_id = ?, unit_price = ?, quantity = ? 
+                                  WHERE invoice_id = ?`;
+
+    // Query to fetch the updated details based on invoice_id
+    let queryFetchUpdatedDetails = `SELECT * FROM Sales_has_products WHERE invoice_id = ?`;
+
+    // Run the update query
+    db.pool.query(queryUpdateSaleDetails, [saleId, productId, unitPrice, quantity, invoiceId], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            // If the update was successful, fetch the updated row
+            db.pool.query(queryFetchUpdatedDetails, [invoiceId], function(err, results, fields) {
+                if (err) {
+                    console.log(err);
+                    res.sendStatus(400);
+                } else {
+                    // Send the updated row details as the response
+                    res.send(results[0]);
+                }
+            });
+        }
+    });
+});
+
+
 
   app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')

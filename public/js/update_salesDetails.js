@@ -2,10 +2,10 @@
 
 
 // Get the objects we need to modify
-let updatesalesDetailsForm = document.getElementById('update-salesDetails-form-ajax');
+let updatesalesDetailsForm = document.getElementById('update-invoice-form-ajax');
 
 // Modify the objects we need
-updatePersonForm.addEventListener("submit", function (e) {
+updatesalesDetailsForm.addEventListener("submit", function (e) {
    
     // Prevent the form from submitting
     e.preventDefault();
@@ -17,12 +17,15 @@ updatePersonForm.addEventListener("submit", function (e) {
     let inputPrice = document.getElementById("input-price-update");
     let inputQuantity = document.getElementById("input-quantity-update");
 
+    console.log("Raw form values:", inputPrice.value, inputQuantity.value);
+
+
     // Get the values from the form fields
     let InvoiceIdValue = inputInvoiceId.value;
     let SaleIdValue = inputSaleId.value;
-    let ProductIdValue = inputProductId;
-    let InputPriceValue = inputPrice;
-    let InputQuantityValue = inputQuantity;
+    let ProductIdValue = inputProductId.value;
+    let InputPriceValue = inputPrice.value;
+    let InputQuantityValue = inputQuantity.value;
     
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
@@ -47,6 +50,8 @@ updatePersonForm.addEventListener("submit", function (e) {
     {
         return;
     }
+
+    console.log(InvoiceIdValue,SaleIdValue, ProductIdValue, InputPriceValue, InputQuantityValue)
 
 
     // Put our data we want to send in a javascript object
@@ -82,25 +87,24 @@ updatePersonForm.addEventListener("submit", function (e) {
 
 })
 
-
-function updateRow(data, personID){
+function updateRow(data, invoiceID){
+    // Assuming that the backend sends a JSON string, we'll parse it
     let parsedData = JSON.parse(data);
     
-    let table = document.getElementById("people-table");
+    let table = document.getElementById("salesDetails-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       //rows would be accessed using the "row" variable assigned in the for loop
-       if (table.rows[i].getAttribute("data-value") == personID) {
+       if (table.rows[i].getAttribute("data-value") == invoiceID) {
 
-            // Get the location of the row where we found the matching person ID
+            // Get the location of the row where we found the matching invoice ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of homeworld value
-            let td = updateRowIndex.getElementsByTagName("td")[3];
-
-            // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].name; 
+            // Update each cell with the parsed data
+            updateRowIndex.getElementsByTagName("td")[1].innerHTML = parsedData.sale_id;
+            updateRowIndex.getElementsByTagName("td")[2].innerHTML = parsedData.product_id;
+            updateRowIndex.getElementsByTagName("td")[3].innerHTML = parsedData.input_price;
+            updateRowIndex.getElementsByTagName("td")[4].innerHTML = parsedData.quantity;
        }
     }
 }
+
