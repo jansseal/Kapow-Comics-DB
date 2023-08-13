@@ -1,0 +1,134 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- index.hbs -->
+<header>
+    <h1>Kapow! Comics - Sales Details</h1>
+</header>
+<nav>
+    <a href="/">Home</a>
+    <a href="customers">Customers</a>
+    <a href="salesDetails">Sales Details</a>
+</nav>
+
+{{!-- Create a table --}}
+<table id="salesDetails-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
+        {{#each data}}
+        <tr data-value={{this.invoice_id}}>
+            <td>{{this.invoice_id}}</td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.product_id}}</td>
+            <td>{{this.unit_price}}</td>
+            <td>{{this.quantity}}</td>
+            <td><button onclick="deleteSaleDetails({{this.invoice_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+        
+    </tbody>
+</table>
+
+
+<h2>Search Using an HTML Form</h2>
+<p>Search by invoice id using the field below!</p>
+<form id="search-invoice_id-html" method='GET' action='/salesDetails'>
+    <label for="input-invoice_id">Search by invoice id: </label>
+    <input type="text" name="invoice_id" id="input-invoice_id-html-search">
+    
+    <input type="submit">
+    <a href='/salesDetails'><button>Reset</button></a>
+</form>
+
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data</h2>
+<p>To add new sale details, please enter the information below and click 'Submit'!</p>
+
+
+
+<form id="add-saleDetails-form-ajax">
+
+    <select name="input-sale_id" id="input-sale_id">
+        <option value="">Sale ID</option>
+        {{#each data}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select>
+
+    <select name="input-product_id" id="input-product_id">
+        <option value="">Select a Product</option>
+        {{#each products}}
+        <option value="{{this.product_id}}">{{this.product_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-price">Unit Price: </label>
+    <input type="number" name="input-price" id="input-price">
+
+    <label for="input-quantity">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity">
+
+    <input type="submit">
+</form>
+
+<h2>Updating Sales Details</h2>
+<p>To update a specific user's homeworld select their name from the drop-down menu on the left and their desired homeworld from the drop down menu on the right</p>
+<form id="update-invoice-form-ajax">
+
+        <label for="input-invoice_id-update">invoice id: </label>
+    <select name="input-invoice_id-update" id="input-invoice_id-update">
+        <option>Select an invoice id</option>
+        {{#each data}}
+        <option value="{{this.invoice_id}}">{{this.invoice_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-sale_id-update">sale id: </label>
+    <select name="input-sale_id-update" id="input-sale_id-update">
+        <option>Select a sale id</option>
+        {{#each data}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-product_id">Product: </label>
+    <select name="input-product_id" id="input-product_id-update">
+        <option>Select a product</option>
+        {{#each products}}
+        <option value="{{this.product_id}}">{{this.product_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-price-update">Unit Price: </label>
+    <input type="number" name="input-price-update" id="input-price-update">
+
+    <label for="input-quantity-update">Quantity: </label>
+    <input type="number" name="input-quantity-update" id="input-quantity-update">
+
+    <input type="submit">
+
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_saleDetails.js"></script>
+<script src="./js/delete_saleDetails.js"></script>
+<script src="./js/update_salesDetails.js"></script>
