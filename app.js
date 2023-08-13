@@ -129,18 +129,18 @@ app.post('/add-customer-ajax', function(req, res)
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
         let customer_name = data.customer_name;
-        let customer_email = data.customer_email;
-
         let customer_phone = data.customer_phone;
-        if (isNull(customer_phone))
-        {
-            customer_phone = 'NULL'
-        };
 
-        console.log("Data values:", customer_name, customer_email, customer_phone)
-    
-        // Create the query and run it on the database
-        query1 = `INSERT INTO Customers (customer_name, customer_email, customer_phone) VALUES (${customer_name}, ${customer_email}, ${customer_phone})`;
+        if (!customer_phone) {
+            customer_phone = 'NULL';
+        } else {
+            customer_phone = "'" + customer_phone + "'";
+        }
+
+    console.log("Data values:", customer_name, customer_email, customer_phone)
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Customers (customer_name, customer_email, customer_phone) VALUES ('${customer_name}', '${customer_email}', ${customer_phone})`;
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
