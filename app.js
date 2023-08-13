@@ -141,7 +141,7 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
                   })
               }
   })});
-
+  
   app.put('/put-invoice-ajax', function(req, res, next) {
     let data = req.body;
 
@@ -152,9 +152,6 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
     let quantity = parseInt(data.quantity);
 
     console.log("Parsed values:",invoiceId,saleId, productId, unitPrice, quantity)
-    console.log(data.unitPrice);
-    console.log(typeof data.unitPrice);
-    console.log(data)
 
     // Query to update the Sales_has_products table based on the invoice_id
     let queryUpdateSaleDetails = `UPDATE Sales_has_products 
@@ -176,14 +173,31 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
                     console.log(err);
                     res.sendStatus(400);
                 } else {
-                    // Send the updated row details as the response
-                    console.log('The results are',results)
-                    res.send(results);
+                    // Before sending the result, map the product_id to product name
+                    let productmap = {};
+                    let queryGetProducts = "SELECT * FROM Products;";
+                    db.pool.query(queryGetProducts, (error, products, fields) => {
+                        if(error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        } else {
+                            products.map(product => {
+                                let id = parseInt(product.product_id, 10);
+                                productmap[id] = product["product_name"];
+                            });
+
+                            results = results.map(result => {
+                                return Object.assign(result, {product_id: productmap[result.product_id]})
+                            });
+                            res.send(results);
+                        }
+                    });
                 }
             });
         }
     });
 });
+
 
 
 
