@@ -105,10 +105,10 @@ function updateRow(data, invoiceID){
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Update each cell with the parsed data
-            updateRowIndex.getElementsByTagName("td")[1].innerHTML = parsedData.sale_id;
-            updateRowIndex.getElementsByTagName("td")[2].innerHTML = parsedData.product_id;
-            updateRowIndex.getElementsByTagName("td")[3].innerHTML = parsedData.input_price;
-            updateRowIndex.getElementsByTagName("td")[4].innerHTML = parsedData.quantity;
+            updateRowIndex.getElementsByTagName("td")[1].innerHTML = parsedData[0].sale_id;
+            updateRowIndex.getElementsByTagName("td")[2].innerHTML = parsedData[0].product_id;
+            updateRowIndex.getElementsByTagName("td")[3].innerHTML = parsedData[0].unit_price;
+            updateRowIndex.getElementsByTagName("td")[4].innerHTML = parsedData[0].quantity;                      
        }
     }
 }
@@ -129,7 +129,7 @@ function deleteRow(invoiceID){
 
 
 function deleteDropDownMenu(invoiceID){
-  let selectMenu = document.getElementById("mySelect");
+  let selectMenu = document.getElementById("input-invoice_id-update");
   for (let i = 0; i < selectMenu.length; i++){
     if (Number(selectMenu.options[i].value) === Number(invoiceID)){
       selectMenu[i].remove();

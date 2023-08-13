@@ -26,7 +26,7 @@
 
         {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.invoice_id}}>
             <td>{{this.invoice_id}}</td>
             <td>{{this.sale_id}}</td>
             <td>{{this.product_id}}</td>

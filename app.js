@@ -177,7 +177,8 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
                     res.sendStatus(400);
                 } else {
                     // Send the updated row details as the response
-                    res.send(rows);
+                    console.log('The results are',results)
+                    res.send(results);
                 }
             });
         }
