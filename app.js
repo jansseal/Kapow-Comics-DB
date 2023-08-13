@@ -150,7 +150,9 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
     let quantity = parseInt(data.quantity);
 
     console.log("Parsed values:",invoiceId,saleId, productId, unitPrice, quantity)
-
+    console.log(data.unitPrice);
+    console.log(typeof data.unitPrice);
+    console.log(data)
 
     // Query to update the Sales_has_products table based on the invoice_id
     let queryUpdateSaleDetails = `UPDATE Sales_has_products 
@@ -173,7 +175,7 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
                     res.sendStatus(400);
                 } else {
                     // Send the updated row details as the response
-                    res.send(results[0]);
+                    res.send(rows);
                 }
             });
         }

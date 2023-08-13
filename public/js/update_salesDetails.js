@@ -21,37 +21,42 @@ updatesalesDetailsForm.addEventListener("submit", function (e) {
 
 
     // Get the values from the form fields
-    let InvoiceIdValue = inputInvoiceId.value;
-    let SaleIdValue = inputSaleId.value;
-    let ProductIdValue = inputProductId.value;
-    let InputPriceValue = inputPrice.value;
-    let InputQuantityValue = inputQuantity.value;
+    let InvoiceIdValue = parseInt(inputInvoiceId.value);
+    let SaleIdValue = parseInt(inputSaleId.value);
+    let ProductIdValue = parseInt(inputProductId.value);
+    let UnitPriceValue = parseInt(inputPrice.value);
+    let InputQuantityValue = parseInt(inputQuantity.value);
     
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
 
     if (isNaN(InvoiceIdValue)) 
     {
+        console.log("Invalid invoice ID input value.");
         return;
     }
     if (isNaN(SaleIdValue)) 
     {
+        console.log("Invalid sale ID input value.");
         return;
     }
     if (isNaN(ProductIdValue)) 
     {
+        console.log("Invalid product ID input value.");
         return;
     }
-    if (isNaN(InputPriceValue)) 
+    if (isNaN(UnitPriceValue)) 
     {
+        console.log("Invalid unit price input value.");
         return;
     }
     if (isNaN(InputQuantityValue)) 
     {
+        console.log("Invalid quantity input value.");
         return;
     }
 
-    console.log(InvoiceIdValue,SaleIdValue, ProductIdValue, InputPriceValue, InputQuantityValue)
+    console.log(InvoiceIdValue, SaleIdValue, ProductIdValue, UnitPriceValue, InputQuantityValue)
 
 
     // Put our data we want to send in a javascript object
@@ -59,7 +64,7 @@ updatesalesDetailsForm.addEventListener("submit", function (e) {
         invoice_id: InvoiceIdValue,
         sale_id: SaleIdValue,
         product_id: ProductIdValue,
-        input_price: InputPriceValue,
+        unit_price: UnitPriceValue,
         quantity: InputQuantityValue
 
     }
