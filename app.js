@@ -6,7 +6,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
-PORT        = 36998;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 36999;                 // Set a port number at the top so it's easy to change in the future
 var db = require('./database/db-connector');
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
@@ -175,9 +175,6 @@ app.post('/add-customer-ajax', function(req, res)
     });
     
 
-/*
-    LISTENER
-*/
 
 app.delete('/delete-saleDetails-ajax', function(req,res,next){
     let data = req.body;
@@ -198,6 +195,36 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
               {
                   // Run the second query
                   db.pool.query(deleteSaleDetails, [invoice_id], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
+  app.delete('/delete-customer-ajax', function(req,res,next){
+    let data = req.body;
+    let customer_id = parseInt(data.customer_id);
+    let deleteCustomer = `DELETE FROM Customers WHERE customer_id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteCustomer, [customer_id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteCustomer, [customer_id], function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);
@@ -265,9 +292,9 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
     });
 });
 
-
-
-
+/*
+    LISTENER
+*/
   app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
