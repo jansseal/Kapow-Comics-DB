@@ -6,7 +6,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
-PORT        = 36999;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 36998;                 // Set a port number at the top so it's easy to change in the future
 var db = require('./database/db-connector');
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
@@ -129,6 +129,7 @@ app.post('/add-customer-ajax', function(req, res)
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
         let customer_name = data.customer_name;
+        let customer_email = data.customer_email;
         let customer_phone = data.customer_phone;
 
         if (!customer_phone) {
