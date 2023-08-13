@@ -67,10 +67,12 @@ app.post('/add-saleDetails-ajax', function(req, res)
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
-        let sale_id = parseInt(data['input-sale_id']);
-        let product_id = parseInt(data['input-product_id']);
-        let unit_price = parseInt(data['input-price']);
-        let quantity = parseInt(data['input-quantity']);
+        let sale_id = parseInt(data.sale_id);
+        let product_id = parseInt(data.product_id);
+        let unit_price = parseInt(data.unit_price);
+        let quantity = parseInt(data.quantity);
+
+        console.log("Parsed values:", sale_id, product_id, unit_price, quantity)
     
         // Create the query and run it on the database
         query1 = `INSERT INTO Sales_has_products (sale_id, product_id, unit_price, quantity) VALUES (${sale_id}, ${product_id}, ${unit_price}, ${quantity})`;

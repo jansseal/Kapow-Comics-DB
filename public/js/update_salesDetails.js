@@ -113,3 +113,29 @@ function updateRow(data, invoiceID){
     }
 }
 
+function deleteRow(invoiceID){
+
+    let table = document.getElementById("salesDetails-table");
+    for (let i = 0, row; row = table.rows[i]; i++) {
+       //iterate through rows
+       //rows would be accessed using the "row" variable assigned in the for loop
+       if (table.rows[i].getAttribute("data-value") == invoiceID) {
+            table.deleteRow(i);
+            deleteDropDownMenu(invoiceID);
+            break;
+       }
+    }
+}
+
+
+function deleteDropDownMenu(invoiceID){
+  let selectMenu = document.getElementById("mySelect");
+  for (let i = 0; i < selectMenu.length; i++){
+    if (Number(selectMenu.options[i].value) === Number(invoiceID)){
+      selectMenu[i].remove();
+      break;
+    } 
+
+  }
+}
+
