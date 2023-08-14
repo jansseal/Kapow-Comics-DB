@@ -8,6 +8,8 @@
     <a href="/">Home</a>
     <a href="customers">Customers</a>
     <a href="salesDetails">Sales Details</a>
+    <a href="suppliers">Suppliers</a>
+    <a href="products">Products</a>
 </nav>
 
 {{!-- Create a table --}}
@@ -69,7 +71,7 @@
 
     <select name="input-sale_id" id="input-sale_id">
         <option value="">Sale ID</option>
-        {{#each data}}
+        {{#each sales}}
         <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
     </select>
@@ -105,7 +107,7 @@
     <label for="input-sale_id-update">sale id: </label>
     <select name="input-sale_id-update" id="input-sale_id-update">
         <option>Select a sale id</option>
-        {{#each data}}
+        {{#each sales}}
         <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
     </select>

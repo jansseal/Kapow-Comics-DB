@@ -24,47 +24,41 @@ app.get('/', function(req, res)
         return res.render('index')
     });
 
-
-app.get('/salesDetails', function(req, res)
+    app.get('/salesDetails', function(req, res)
     {
-        let query1;             // Define our query
-
-        // If there is no query string, we just perform a basic SELECT
-        if (req.query.invoice_id === undefined)
-        {
-        query1 = "SELECT * FROM Sales_has_products;";
+        let query1;             
+    
+        if (req.query.invoice_id === undefined) {
+            query1 = "SELECT * FROM Sales_has_products;";
+        } else {
+            query1 = `SELECT * FROM Sales_has_products WHERE invoice_id LIKE "${req.query.invoice_id}%"`;
         }
-
-        else
-        {
-            query1 = `SELECT * FROM Sales_has_products WHERE invoice_id LIKE "${req.query.invoice_id}%"`
-        }
-
+    
         let query2 = "SELECT * FROM Products;";
-
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-            let salesDetails = rows;
-
-            db.pool.query(query2, (error, rows, fields) => {
-
-                let products = rows;
-
+        let query3 = "SELECT * FROM Sales;";
+    
+        db.pool.query(query1, function(error, salesDetails, fields) {    
+            
+            db.pool.query(query2, function(error, products, fields) {
+                
                 let productmap = {}
                 products.map(product => {
                     let id = parseInt(product.product_id, 10);
                     productmap[id] = product["product_name"];
-            })
-                salesDetails = salesDetails.map(salesDetails => {
-                    return Object.assign(salesDetails, {product_id: productmap[salesDetails.product_id]})
-            })
-
-
-
-                return res.render('salesDetails', {data: salesDetails, products: products});
-        });                         
-    })
-});  
+                });
+    
+                salesDetails = salesDetails.map(saleDetail => {
+                    return Object.assign(saleDetail, {product_id: productmap[saleDetail.product_id]})
+                });
+    
+                db.pool.query(query3, function(error, sales, fields) {
+                    console.log(sales)
+                    return res.render('salesDetails', {data: salesDetails, products: products, sales: sales});
+                });
+            });
+        });
+    });
+    
 
 app.get('/customers', function(req, res)
     {  
@@ -104,6 +98,53 @@ app.get('/suppliers', function(req, res) {
             return res.render('suppliers', {data: rows}); // Use the 'suppliers' template
         });
     });
+
+    app.get('/products', function(req, res)
+    {  
+        let query1;
+        if (req.query.product_name === undefined)
+        {
+        query1 = "SELECT * FROM Products;";
+        }
+        else
+        {
+            query1 = `SELECT * FROM Products WHERE product_name LIKE "${req.query.product_name}%"`
+        }
+
+        // Query 2 is the same in both cases
+        let query2 = "SELECT * FROM Suppliers;";
+    
+        // Run the 1st query
+        db.pool.query(query1, function(error, rows, fields){
+            
+            // Save the people
+            let products = rows;
+            
+            // Run the second query
+            db.pool.query(query2, (error, rows, fields) => {
+                
+                // Save the planets
+                let suppliers = rows;
+            // element of an array.
+                let suppliermap = {}
+                suppliers.map(supplier => {
+                    let id = parseInt(supplier.supplier_id, 10);
+
+                suppliermap[id] = supplier["supplier_name"];
+             })
+
+            // Overwrite the homeworld ID with the name of the planet in the people object
+            products = products.map(product => {
+                return Object.assign(product, {supplier_id: suppliermap[product.supplier_id]})
+            })
+
+            // END OF NEW CODE
+                
+                return res.render('products', {data: products, suppliers: suppliers});
+            })                                                   // an object where 'data' is equal to the 'rows' we
+    })
+});                                                         // received back from the query
+    
          
                                                        
 
@@ -201,7 +242,7 @@ app.post('/add-customer-ajax', function(req, res)
             }
         })
     });
-    
+
     app.post('/add-suppliers-ajax', function(req, res) 
     {
     // Capture the incoming data and parse it back to a JS objectlet 
@@ -245,6 +286,55 @@ app.post('/add-customer-ajax', function(req, res)
             }
         })
     });
+
+    app.post('/add-products-ajax', function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+        let product_name = data.product_name;
+        let product_price = parseInt(data.product_price);
+        let product_type = data.product_type;
+        let supplier_id = data.supplier_id;
+
+        if (supplier_id === "-1") { 
+            supplier_id = 'NULL';
+        }
+    
+        // Create the query and run it on the database
+        let query1 = `INSERT INTO Products (product_name, product_price, product_type, supplier_id) VALUES ('${product_name}', ${product_price}, '${product_type}', ${supplier_id})`;
+
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on bsg_people
+                query2 = `SELECT * FROM Products;`;
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
+
     
 
 /*
