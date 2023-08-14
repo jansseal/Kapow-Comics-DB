@@ -44,7 +44,7 @@
             <td>{{this.supplier_phone}}</td>
             <td>{{this.supplier_city}}</td>
             <td>{{this.supplier_state}}</td>
-            <td><button onclick="deleteSaleDetails({{this.supplier_id}})">Delete</button></td>
+            <td><button onclick="deleteSupplier({{this.supplier_id}})">Delete</button></td>
         </tr>
         {{/each}}
         
@@ -93,3 +93,4 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_suppliers.js"></script>
+<script src="./js/delete_suppliers.js"></script>

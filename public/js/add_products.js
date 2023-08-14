@@ -59,7 +59,7 @@ addProductsForm.addEventListener("submit", function (e) {
 
 
 // Creates a single row from an Object representing a single record from 
-// Sales_has_products
+// Products
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
