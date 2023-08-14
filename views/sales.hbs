@@ -52,7 +52,7 @@
     <label for="input-sale_id">Sale ID: </label>
     <input type="text" name="sale_id" id="input-sale_id-html-search">
     
-    <input type="submit">
+    <input type="submit" class="btn">
     <a href='/sales'><button>Reset</button></a>
 </form>
 
@@ -63,16 +63,16 @@
 <form id="add-sale-form-ajax">
 
     <label for="input-revenue">Total Revenue: </label>
-    <input type="number" name="input-revenue" id="input-revenue">
+    <input type="number" name="input-revenue" id="input-revenue"><br><br>
 
     <select name="input-customer_id" id="input-customer_id">
         <option value="">Select Customer: </option>
         {{#each customers}}
         <option value="{{this.customer_id}}">{{this.customer_name}}</option>
         {{/each}}
-    </select> 
+    </select><br><br> 
 
-    <input type="submit">
+    <input type="submit" class="btn">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

@@ -55,9 +55,9 @@
 <p>Search by supplier id using the field below!</p>
 <form id="search-supplier_id-html" method='GET' action='/suppliers'>
     <label for="input-supplier_id">Search by supplier id: </label>
-    <input type="text" name="supplier_id" id="input-supplier_id-html-search">
+    <input type="text" name="supplier_id" id="input-supplier_id-html-search"><br><br>
     
-    <input type="submit">
+    <input type="submit" class="btn">
     <a href='/suppliers'><button>Reset</button></a>
 </form>
 
@@ -71,22 +71,23 @@
 
 <form id="add-suppliers-form-ajax">
 
+
     <label for="input-supplier_name">Supplier Name: </label>
-    <input type="text" name="input-supplier_name" id="input-supplier_name">
+    <input type="text" name="input-supplier_name" id="input-supplier_name"><br><br>
 
     <label for="input-supplier_email">Supplier Email: </label>
-    <input type="text" name="input-supplier_email" id="input-supplier_email">
+    <input type="text" name="input-supplier_email" id="input-supplier_email"><br><br>
 
     <label for="input-supplier_phone">Supplier Phone: </label>
-    <input type="number" name="input-supplier_phone" id="input-supplier_phone">
+    <input type="number" name="input-supplier_phone" id="input-supplier_phone"><br><br>
 
     <label for="input-supplier_city">Supplier City: </label>
-    <input type="text" name="input-supplier_city" id="input-supplier_city">
+    <input type="text" name="input-supplier_city" id="input-supplier_city"><br><br>
 
     <label for="input-supplier_state">Supplier state: </label>
-    <input type="text" name="input-supplier_state" id="input-supplier_state">
+    <input type="text" name="input-supplier_state" id="input-supplier_state"><br><br>
 
-    <input type="submit">
+    <input type="submit" class="btn">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

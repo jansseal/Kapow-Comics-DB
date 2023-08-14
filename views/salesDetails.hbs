@@ -54,9 +54,9 @@
 <p>Search by invoice id using the field below!</p>
 <form id="search-invoice_id-html" method='GET' action='/salesDetails'>
     <label for="input-invoice_id">Search by invoice id: </label>
-    <input type="text" name="invoice_id" id="input-invoice_id-html-search">
+    <input type="text" name="invoice_id" id="input-invoice_id-html-search"><br><br>
     
-    <input type="submit">
+    <input type="submit" class="btn">
     <a href='/salesDetails'><button>Reset</button></a>
 </form>
 
@@ -75,22 +75,22 @@
         {{#each sales}}
         <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
-    </select>
+    </select><br><br>
 
     <select name="input-product_id" id="input-product_id">
         <option value="">Select a Product</option>
         {{#each products}}
         <option value="{{this.product_id}}">{{this.product_name}}</option>
         {{/each}}
-    </select>
+    </select><br><br>
 
     <label for="input-price">Unit Price: </label>
-    <input type="number" name="input-price" id="input-price">
+    <input type="number" name="input-price" id="input-price"><br><br>
 
     <label for="input-quantity">Quantity: </label>
-    <input type="number" name="input-quantity" id="input-quantity">
+    <input type="number" name="input-quantity" id="input-quantity"><br><br>
 
-    <input type="submit">
+    <input type="submit" class="btn">
 </form>
 
 <h2>Updating Sales Details</h2>
@@ -103,7 +103,7 @@
         {{#each data}}
         <option value="{{this.invoice_id}}">{{this.invoice_id}}</option>
         {{/each}}
-    </select>
+    </select><br><br>
 
     <label for="input-sale_id-update">sale id: </label>
     <select name="input-sale_id-update" id="input-sale_id-update">
@@ -111,7 +111,7 @@
         {{#each sales}}
         <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
-    </select>
+    </select><br><br>
 
     <label for="input-product_id">Product: </label>
     <select name="input-product_id" id="input-product_id-update">
@@ -119,15 +119,15 @@
         {{#each products}}
         <option value="{{this.product_id}}">{{this.product_name}}</option>
         {{/each}}
-    </select>
+    </select><br><br>
     
     <label for="input-price-update">Unit Price: </label>
-    <input type="number" name="input-price-update" id="input-price-update">
+    <input type="number" name="input-price-update" id="input-price-update"><br><br>
 
     <label for="input-quantity-update">Quantity: </label>
-    <input type="number" name="input-quantity-update" id="input-quantity-update">
+    <input type="number" name="input-quantity-update" id="input-quantity-update"><br><br>
 
-    <input type="submit">
+    <input type="submit" class="btn">
 
 </form>
 

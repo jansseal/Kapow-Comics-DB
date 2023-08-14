@@ -2,7 +2,7 @@
 
 <!-- index.hbs -->
 <header>
-    <h1>Kapow! Comics - Product Details</h1>
+    <h1>Kapow! Comics - Products</h1>
 </header>
 <nav>
     <a href="/">Home</a>
@@ -34,7 +34,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
+        {{!-- For each row, print the product_id, product_name, product_price, product_type, and suppiler_id, in order --}}
         {{#each data}}
         <tr data-value={{this.product_id}}>
             <td>{{this.product_id}}</td>
@@ -42,7 +42,7 @@
             <td>{{this.product_price}}</td>
             <td>{{this.product_type}}</td>
             <td>{{this.supplier_id}}</td>
-            <td><button onclick="deleteSaleDetails({{this.product_id}})">Delete</button></td>
+            <td><button onclick="deleteProduct({{this.product_id}})">Delete</button></td>
         </tr>
         {{/each}}
         
@@ -50,13 +50,13 @@
 </table>
 
 
-<h2>Search Using an HTML Form</h2>
-<p>Search by the product name using the field below!</p>
+<h2>Search for a Product</h2>
+<p>Search by the product's name using the field below!</p>
 <form id="search-product_name-html" method='GET' action='/products'>
     <label for="input-product_name">Search by product name : </label>
-    <input type="text" name="product_name" id="input-product_name-html-search">
+    <input type="text" name="product_name" id="input-product_name-html-search"><br><br>
     
-    <input type="submit">
+    <input type="submit" class="btn">
     <a href='/products'><button>Reset</button></a>
 </form>
 
@@ -71,24 +71,29 @@
 <form id="add-products-form-ajax">
 
     <label for="input-product_name">Product Name: </label>
-    <input type="text" name="input-products_name" id="input-products_name">
+    <input type="text" name="input-products_name" id="input-products_name"><br><br>
 
-    <label for="input-product_price">Product Price: </label>
-    <input type="text" name="input-products_price" id="input-products_price">
+    <label for="input-product_price">Current Price: </label>
+    <input type="text" name="input-products_price" id="input-products_price"><br><br>
 
     <label for="input-product_type">Product Type: </label>
-    <input type="Text" name="input-products_type" id="input-products_type">
+    <select name="input-products_type" id="input-products_type">
+        <option value="book">Book</option>
+        <option value="merchandise">Merchandise</option>
+    </select><br><br>
+    {{!-- <input type="Text" name="input-products_type" id="input-products_type"><br><br> --}}
 
+    <label for="input-supplier_type">Supplier:</label>
     <select name="input-supplier_id" id="input-supplier_id">
         <option value="">Select Supplier</option>
         <option value="-1">In-House- No Supplier ID</option>
         {{#each suppliers}}
         <option value="{{this.supplier_id}}">{{this.supplier_name}}</option>
         {{/each}}
-    </select>   
+    </select><br><br>   
 
 
-    <input type="submit">
+    <input type="submit" class="btn">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

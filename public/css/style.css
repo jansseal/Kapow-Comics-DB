@@ -9,26 +9,26 @@ body {
 }
 
 
-.main-table {
+table {
     text-align: center;
     vertical-align: middle;
     margin-top: 50px;
 }
-.main-table th {
+table th {
     background-color: #3a4ca4;
     color: #fff;
 }
-.main-table tr {
+table tr {
     background-color: #f8f8e3;
 }
-.main-table th, td {
+table th, td {
     height: 20px;
     width: 160px;
 }
-.main-table tr:nth-child(odd) td {
+table tr:nth-child(odd) td {
     background-color: #f7f7f0;
 }
-.main-table tr:nth-child(even) td {
+table tr:nth-child(even) td {
     background-color: #efe9c8;
 }
 h2 {
@@ -76,15 +76,8 @@ button:hover, .btn:hover {
     margin-top: 10px;
     margin-left: 5px;
 }
-.sub-table {
-    margin-left: 10px;
-    border: none;
-    background-color: transparent;
-}
-.sub-table td {
-    border: none;
-}
-.section {
+
+form {
     width: 550px;
     border: 4px solid #ffc510;
     padding: 10px;
