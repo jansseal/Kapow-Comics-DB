@@ -6,7 +6,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
-PORT        = 36971;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 36967;                 // Set a port number at the top so it's easy to change in the future
 var db = require('./database/db-connector');
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
@@ -24,6 +24,48 @@ app.get('/', function(req, res)
         return res.render('index')
     });
 
+app.get('/sales', function(req, res)
+    {
+        let query1;             // Define our query
+
+        // If there is no query string, we just perform a basic SELECT
+        if (req.query.sale_id === undefined)
+        {
+        query1 = "SELECT * FROM Sales;";
+        }
+
+        else
+        {
+            query1 = `SELECT * FROM Sales WHERE sale_id LIKE "${req.query.sale_id}%"`
+        }
+
+        let query2 = "SELECT * FROM Customers;";
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            let sales = rows;
+
+            db.pool.query(query2, (error, rows, fields) => {
+
+                let customers = rows;
+
+                let customermap = {}
+                customers.map(customer => {
+                    let id = parseInt(customer.customer_id, 10);
+                    customermap[id] = customer["customer_name"];
+            })
+
+            // Overwrite the homeworld ID with the name of the planet in the people object
+                sales = sales.map(sales => {
+                    return Object.assign(sales, {customer_id: customermap[sales.customer_id]})
+            })
+
+
+
+                return res.render('sales', {data: sales, customers: customers});
+        });                         
+    })
+});
 
 app.get('/salesDetails', function(req, res)
     {
