@@ -90,7 +90,7 @@ addRowToTable = (data) => {
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteSaleDetails(newRow.invoice_id);
+        deleteProduct(newRow.product_id);
     };
     
     // Add the cells to the row 
@@ -110,8 +110,8 @@ addRowToTable = (data) => {
     // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
     let selectMenu = document.getElementById("mySelect");
     let option = document.createElement("option");
-    option.text = newRow.invoice_id;
-    option.value = newRow.invoice_id;
+    option.text = newRow.product_id;
+    option.value = newRow.product_id;
     selectMenu.add(option);
 }
 

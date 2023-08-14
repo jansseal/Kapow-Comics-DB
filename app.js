@@ -480,6 +480,36 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
                   })
               }
   })});
+
+  app.delete('/delete-product-ajax', function(req,res,next){
+    let data = req.body;
+    let product_id = parseInt(data.product_id);
+    let deleteProduct = `DELETE FROM Products WHERE product_id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteProduct, [product_id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteProduct, [product_id], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
   
   app.put('/put-invoice-ajax', function(req, res, next) {
     let data = req.body;
