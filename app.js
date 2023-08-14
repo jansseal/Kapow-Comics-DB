@@ -142,7 +142,7 @@ app.get('/suppliers', function(req, res) {
         });
     });
 
-    app.get('/products', function(req, res)
+app.get('/products', function(req, res)
     {  
         let query1;
         if (req.query.product_name === undefined)
@@ -329,11 +329,49 @@ app.post('/add-customer-ajax', function(req, res)
             }
         })
     });
-    
 
-/*
-    LISTENER
-*/
+app.post('/add-sale-ajax', function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+        let sale_revenue = parseInt(data.sale_revenue);
+        let customer_id = parseInt(data.customer_id);
+
+    console.log("Data values:", sale_revenue, customer_id)
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Sales (sale_revenue, customer_id) VALUES (${sale_revenue}, ${customer_id})`;
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on Sales
+                query2 = `SELECT * FROM Sales;`;
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
 
 app.delete('/delete-saleDetails-ajax', function(req,res,next){
     let data = req.body;

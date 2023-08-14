@@ -33,7 +33,6 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
         {{#each data}}
         <tr data-value={{this.sale_id}}>
             <td>{{this.sale_id}}</td>
@@ -47,7 +46,7 @@
     </tbody>
 </table>
 
-<h2>Search Using an HTML Form</h2>
+<h2>Search for a Sale Record</h2>
 <p>Search by sale ID using the field below!</p>
 <form id="search-sale_id-html" method='GET' action='/sales'>
     <label for="input-sale_id">Sale ID: </label>
@@ -63,11 +62,18 @@
 
 <form id="add-sale-form-ajax">
 
-    <label for="input-price">Unit Price: </label>
-    <input type="number" name="input-price" id="input-price">
+    <label for="input-revenue">Total Revenue: </label>
+    <input type="number" name="input-revenue" id="input-revenue">
 
-    <label for="input-quantity">Quantity: </label>
-    <input type="number" name="input-quantity" id="input-quantity">
+    <select name="input-customer_id" id="input-customer_id">
+        <option value="">Select Customer: </option>
+        {{#each customers}}
+        <option value="{{this.customer_id}}">{{this.customer_name}}</option>
+        {{/each}}
+    </select> 
 
     <input type="submit">
 </form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_sale.js"></script>
