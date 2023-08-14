@@ -39,12 +39,17 @@ addSaleDetailsForm.addEventListener("submit", function (e) {
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
+            location.reload();
 
             // Clear the input fields for another transaction
             inputSaleID.value = '';
             inputProductID.value = '';
             inputPrice.value = '';
             inputQuantity.value = '';
+            
+            console.log('Page has been reloaded');
+            
+            // https://www.w3schools.com/jsref/met_win_settimeout.asp
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -78,6 +83,7 @@ addRowToTable = (data) => {
     let pidCell = document.createElement("TD");
     let priceCell = document.createElement("TD");
     let quantityCell = document.createElement("TD");
+    
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
@@ -99,6 +105,7 @@ addRowToTable = (data) => {
     row.appendChild(pidCell);
     row.appendChild(priceCell);
     row.appendChild(quantityCell);
+    row.appendChild(deleteCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.invoice_id);
@@ -108,7 +115,7 @@ addRowToTable = (data) => {
 
     // Find drop down menu, create a new option, fill data in the option (full name, id),
     // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
+    let selectMenu = document.getElementById("input-invoice_id-update");
     let option = document.createElement("option");
     option.text = newRow.invoice_id;
     option.value = newRow.invoice_id;

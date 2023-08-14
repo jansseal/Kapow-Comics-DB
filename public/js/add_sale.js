@@ -33,6 +33,8 @@ addSaleForm.addEventListener("submit", function (e) {
             // Add the new data to the table
             addRowToTable(xhttp.response);
 
+            location.reload();
+
             // Clear the input fields for another transaction
             inputSaleRevenue.value = '';
             inputCustomerId.value = '';
@@ -95,7 +97,7 @@ addRowToTable = (data) => {
 
     // Find drop down menu, create a new option, fill data in the option (full name, id),
     // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
+    let selectMenu = document.getElementById("input-customer_id");
     let option = document.createElement("option");
     option.text = newRow.sale_id;
     option.value = newRow.sale_id;

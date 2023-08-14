@@ -92,6 +92,7 @@ addRowToTable = (data) => {
     row.appendChild(emailCell);
     row.appendChild(phoneCell);
 
+
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.customer_id);
 
