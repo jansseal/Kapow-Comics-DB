@@ -1,0 +1,72 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<header>
+    <h1>Kapow! Comics - Sales</h1>
+</header>
+<nav>
+    <a href="/">Home</a>
+    <a href="customers">Customers</a>
+    <a href="suppliers">Suppliers</a>
+    <a href="sales">Sales</a>
+    <a href="salesDetails">Sales Details</a>
+</nav>
+
+{{!-- Create a table --}}
+<table id="sales-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
+        {{#each data}}
+        <tr data-value={{this.sale_id}}>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.sale_revenue}}</td>
+            <td>{{this.sale_date}}</td>
+            <td>{{this.customer_id}}</td>
+            <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+        
+    </tbody>
+</table>
+
+<h2>Search Using an HTML Form</h2>
+<p>Search by sale ID using the field below!</p>
+<form id="search-sale_id-html" method='GET' action='/sales'>
+    <label for="input-sale_id">Sale ID: </label>
+    <input type="text" name="sale_id" id="input-sale_id-html-search">
+    
+    <input type="submit">
+    <a href='/sales'><button>Reset</button></a>
+</form>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data</h2>
+<p>To add new a new sale, please enter the information below and click 'Submit'!</p>
+
+<form id="add-sale-form-ajax">
+
+    <label for="input-price">Unit Price: </label>
+    <input type="number" name="input-price" id="input-price">
+
+    <label for="input-quantity">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity">
+
+    <input type="submit">
+</form>
