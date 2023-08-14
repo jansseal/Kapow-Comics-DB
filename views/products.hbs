@@ -22,12 +22,12 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Current Price</th>
+            <th>Product Type</th>
+            <th>Supplier ID</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -53,7 +53,7 @@
 <h2>Search for a Product</h2>
 <p>Search by the product's name using the field below!</p>
 <form id="search-product_name-html" method='GET' action='/products'>
-    <label for="input-product_name">Search by product name : </label>
+    <label for="input-product_name">Product Name: </label>
     <input type="text" name="product_name" id="input-product_name-html-search"><br><br>
     
     <input type="submit" class="btn">
@@ -64,8 +64,8 @@
 
 
 {{!-- Form to add a record to the table  --}}
-<h2>Adding Data</h2>
-<p>To add new sale details, please enter the information below and click 'Submit'!</p>
+<h2>Add a New Product</h2>
+<p>To add a new product, please enter the information below and click 'Submit'!</p>
 
 
 <form id="add-products-form-ajax">
@@ -78,10 +78,10 @@
 
     <label for="input-product_type">Product Type: </label>
     <select name="input-products_type" id="input-products_type">
+        <option value="">Select Type</option>
         <option value="book">Book</option>
         <option value="merchandise">Merchandise</option>
     </select><br><br>
-    {{!-- <input type="Text" name="input-products_type" id="input-products_type"><br><br> --}}
 
     <label for="input-supplier_type">Supplier:</label>
     <select name="input-supplier_id" id="input-supplier_id">

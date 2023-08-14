@@ -22,12 +22,12 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
+            <th>Invoice ID</th>
+            <th>Sale ID</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -50,10 +50,10 @@
 </table>
 
 
-<h2>Search Using an HTML Form</h2>
-<p>Search by invoice id using the field below!</p>
+<h2>Search for Sales Details</h2>
+<p>Search by invoice ID using the field below!</p>
 <form id="search-invoice_id-html" method='GET' action='/salesDetails'>
-    <label for="input-invoice_id">Search by invoice id: </label>
+    <label for="input-invoice_id">Invoice ID: </label>
     <input type="text" name="invoice_id" id="input-invoice_id-html-search"><br><br>
     
     <input type="submit" class="btn">
@@ -63,13 +63,14 @@
 
 
 {{!-- Form to add a record to the table  --}}
-<h2>Adding Data</h2>
+<h2>Add Sales Details</h2>
 <p>To add new sale details, please enter the information below and click 'Submit'!</p>
 
 
 
 <form id="add-saleDetails-form-ajax">
 
+    <label for="input-sale_id">Sale ID: </label>
     <select name="input-sale_id" id="input-sale_id">
         <option value="">Sale ID</option>
         {{#each sales}}
@@ -77,6 +78,7 @@
         {{/each}}
     </select><br><br>
 
+    <label for="input-product_id">Product ID: </label>
     <select name="input-product_id" id="input-product_id">
         <option value="">Select a Product</option>
         {{#each products}}
@@ -93,11 +95,11 @@
     <input type="submit" class="btn">
 </form>
 
-<h2>Updating Sales Details</h2>
-<p>To update a specific user's homeworld select their name from the drop-down menu on the left and their desired homeworld from the drop down menu on the right</p>
+<h2>Update Sales Details</h2>
+<p>To update a specific invoice's sales details, use the drop-down menu below to select the appropriate invoice, then use the other drop-downs and input fields to update the information.</p>
 <form id="update-invoice-form-ajax">
 
-        <label for="input-invoice_id-update">invoice id: </label>
+        <label for="input-invoice_id-update">Invoice ID: </label>
     <select name="input-invoice_id-update" id="input-invoice_id-update">
         <option>Select an invoice id</option>
         {{#each data}}
@@ -105,7 +107,7 @@
         {{/each}}
     </select><br><br>
 
-    <label for="input-sale_id-update">sale id: </label>
+    <label for="input-sale_id-update">Sale ID: </label>
     <select name="input-sale_id-update" id="input-sale_id-update">
         <option>Select a sale id</option>
         {{#each sales}}
@@ -113,7 +115,7 @@
         {{/each}}
     </select><br><br>
 
-    <label for="input-product_id">Product: </label>
+    <label for="input-product_id">Product Name: </label>
     <select name="input-product_id" id="input-product_id-update">
         <option>Select a product</option>
         {{#each products}}

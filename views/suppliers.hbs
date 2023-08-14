@@ -2,7 +2,7 @@
 
 <!-- index.hbs -->
 <header>
-    <h1>Kapow! Comics - Supplier Details</h1>
+    <h1>Kapow! Comics - Suppliers</h1>
 </header>
 <nav>
     <a href="/">Home</a>
@@ -22,19 +22,20 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
+            <th>Supplier ID</th>
+            <th>Supplier Name</th>
+            <th>Contact Email Address</th>
+            <th>Contact Phone Number</th>
+            <th>Location City</th>
+            <th>Location State</th>
+            <th></th>
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
+        {{!-- For each row, print the supplier_id, supplier_name, supplier_email, supplier_phone, supplier_city, and supplier_state, in order --}}
         {{#each data}}
         <tr data-value={{this.supplier_id}}>
             <td>{{this.supplier_id}}</td>
@@ -51,10 +52,10 @@
 </table>
 
 
-<h2>Search Using an HTML Form</h2>
-<p>Search by supplier id using the field below!</p>
+<h2>Search for a Supplier</h2>
+<p>Search by supplier ID using the field below!</p>
 <form id="search-supplier_id-html" method='GET' action='/suppliers'>
-    <label for="input-supplier_id">Search by supplier id: </label>
+    <label for="input-supplier_id">Supplier ID: </label>
     <input type="text" name="supplier_id" id="input-supplier_id-html-search"><br><br>
     
     <input type="submit" class="btn">
@@ -65,8 +66,8 @@
 
 
 {{!-- Form to add a record to the table  --}}
-<h2>Adding Data</h2>
-<p>To add new sale details, please enter the information below and click 'Submit'!</p>
+<h2>Add a New Supplier</h2>
+<p>To add new supplier, please enter the information below and click 'Submit'!</p>
 
 
 <form id="add-suppliers-form-ajax">
@@ -75,16 +76,16 @@
     <label for="input-supplier_name">Supplier Name: </label>
     <input type="text" name="input-supplier_name" id="input-supplier_name"><br><br>
 
-    <label for="input-supplier_email">Supplier Email: </label>
+    <label for="input-supplier_email">Primary Contact Email Address: </label>
     <input type="text" name="input-supplier_email" id="input-supplier_email"><br><br>
 
-    <label for="input-supplier_phone">Supplier Phone: </label>
+    <label for="input-supplier_phone">Primary Contact Phone Number: </label>
     <input type="number" name="input-supplier_phone" id="input-supplier_phone"><br><br>
 
-    <label for="input-supplier_city">Supplier City: </label>
+    <label for="input-supplier_city">Location City: </label>
     <input type="text" name="input-supplier_city" id="input-supplier_city"><br><br>
 
-    <label for="input-supplier_state">Supplier state: </label>
+    <label for="input-supplier_state">Location State (two-letter abbreviations only): </label>
     <input type="text" name="input-supplier_state" id="input-supplier_state"><br><br>
 
     <input type="submit" class="btn">

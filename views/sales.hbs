@@ -21,12 +21,11 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
+            <th>Sale ID</th>
+            <th>Sale Revenue</th>
+            <th>Date and Time of Sale</th>
+            <th>Customer Name</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -46,7 +45,7 @@
     </tbody>
 </table>
 
-<h2>Search for a Sale Record</h2>
+<h2>Search for a Sale</h2>
 <p>Search by sale ID using the field below!</p>
 <form id="search-sale_id-html" method='GET' action='/sales'>
     <label for="input-sale_id">Sale ID: </label>
@@ -57,14 +56,15 @@
 </form>
 
 {{!-- Form to add a record to the table  --}}
-<h2>Adding Data</h2>
+<h2>Add a New Sale</h2>
 <p>To add new a new sale, please enter the information below and click 'Submit'!</p>
 
 <form id="add-sale-form-ajax">
 
-    <label for="input-revenue">Total Revenue: </label>
+    <label for="input-revenue">Sale Revenue: </label>
     <input type="number" name="input-revenue" id="input-revenue"><br><br>
 
+    <label for="input-customer_id">Customer Name: </label>
     <select name="input-customer_id" id="input-customer_id">
         <option value="">Select Customer: </option>
         {{#each customers}}

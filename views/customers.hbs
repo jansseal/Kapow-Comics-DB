@@ -21,12 +21,11 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
+            <th>Customer ID</th>
+            <th>Full Name</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -63,7 +62,7 @@
 
 <form id="add-customer-form-ajax">
 
-    <label for="input_name">First and Last Name: </label>
+    <label for="input_name">Full Name: </label>
     <input type="text" name="input-name" id="input-name"><br><br>
 
     <label for="input-email">Email Address: </label>
