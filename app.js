@@ -72,9 +72,22 @@ app.get('/customers', function(req, res)
     {  
         let query1 = "SELECT * FROM Customers;";               // Define our query
 
+        // If there is no query string, we just perform a basic SELECT
+        if (req.query.customer_name === undefined)
+        {
+            query1 = "SELECT * FROM Customers;";
+        }
+
+        // If there is a query string, we assume this is a search, and return desired results
+        else
+        {
+            query1 = `SELECT * FROM Customers WHERE customer_name LIKE "${req.query.customer_name}%"`
+        }
+
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-            res.render('customers', {data: rows});                  // Render the customers.hbs file, and also send the renderer
+            let customers = rows;
+            res.render('customers', {data: customers});                  // Render the customers.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     }); 
                                                        
