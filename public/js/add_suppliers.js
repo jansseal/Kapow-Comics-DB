@@ -1,27 +1,32 @@
-// Get the objects we need to modify
+/*
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+*/
+
+// Get the form element for adding suppliers
 let addSuppliersForm = document.getElementById('add-suppliers-form-ajax');
 
-// Modify the objects we need
+// Listen for form submission
 addSuppliersForm.addEventListener("submit", function (e) {
     
-    // Prevent the form from submitting
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Get form fields we need to get data from
+    // Get input fields
     let inputSupplierName = document.getElementById("input-supplier_name");
     let inputSupplierEmail = document.getElementById("input-supplier_email");
     let inputSupplierPhone = document.getElementById("input-supplier_phone");
     let inputSupplierCity = document.getElementById("input-supplier_city");
     let inputSupplierState = document.getElementById("input-supplier_state");
 
-    // Get the values from the form fields
+    // Get input values
     let SupplierNameValue = inputSupplierName.value;
     let SupplierEmailValue = inputSupplierEmail.value;
     let SupplierPhoneValue = inputSupplierPhone.value;
     let SupplierCityValue = inputSupplierCity.value;
     let SupplierStateValue = inputSupplierState.value;
 
-    // Put our data we want to send in a javascript object
+    // Create a data object
     let data = {
         supplier_name: SupplierNameValue,
         supplier_email: SupplierEmailValue,
@@ -30,20 +35,20 @@ addSuppliersForm.addEventListener("submit", function (e) {
         supplier_state: SupplierStateValue
     }
     
-    // Setup our AJAX request
+    // Setup an AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-suppliers-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Define how to handle an AJAX response
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
+            // Add the new supplier data to the table
             addRowToTable(xhttp.response);
             location.reload();
 
-            // Clear the input fields for another transaction
+            // Clear input fields for another entry
             inputSupplierName.value = '';
             inputSupplierEmail.value = '';
             inputSupplierPhone.value = '';
@@ -55,27 +60,26 @@ addSuppliersForm.addEventListener("submit", function (e) {
         }
     }
 
-    // Send the request and wait for the response
+    // Send the request and data
     xhttp.send(JSON.stringify(data));
 
 })
 
 
-// Creates a single row from an Object representing a single record from 
-// Sales_has_products
+// Function to add a row to the table
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+    // Get a reference to the table
     let currentTable = document.getElementById("suppliers-table");
 
-    // Get the location where we should insert the new row (end of table)
+    // Calculate the new row index
     let newRowIndex = currentTable.rows.length;
 
-    // Get a reference to the new row from the database query (last object)
+    // Parse the response data
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create row elements and cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
@@ -84,21 +88,15 @@ addRowToTable = (data) => {
     let cityCell = document.createElement("TD");
     let stateCell = document.createElement("TD");
 
-    // Fill the cells with correct data
+    // Fill cells with data
     idCell.innerText = newRow.supplier_id;
     nameCell.innerText = newRow.supplier_name;
     emailCell.innerText = newRow.supplier_email;
     phoneCell.innerText = newRow.supplier_phone;
     cityCell.innerText = newRow.supplier_city;
     stateCell.innerText = newRow.supplier_state;
-
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
-        deleteSupplier(newRow.supplier_id);
-    };
     
-    // Add the cells to the row 
+    // Append cells to row
     row.appendChild(idCell);
     row.appendChild(nameCell);
     row.appendChild(emailCell);
@@ -106,10 +104,10 @@ addRowToTable = (data) => {
     row.appendChild(cityCell);
     row.appendChild(stateCell);
 
-    // Add a row attribute so the deleteRow function can find a newly added row
+    // Set row attribute
     row.setAttribute('data-value', newRow.supplier_id);
 
-    // Add the row to the table
+    // Append row to the table
     currentTable.appendChild(row);
 }
 

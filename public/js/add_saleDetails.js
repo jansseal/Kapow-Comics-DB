@@ -92,7 +92,7 @@ addRowToTable = (data) => {
     idCell.innerText = newRow.invoice_id;
     sidCell.innerText = newRow.sale_id;
     pidCell.innerText = newRow.product_id;
-    priceCell.innerText = newRow.unit_price.toFixed(2);
+    priceCell.innerText = newRow.unit_price.toFixed(2); // This line is adapted from https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
     quantityCell.innerText = newRow.quantity;
 
     // Create delete button
