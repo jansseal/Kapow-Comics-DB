@@ -1,5 +1,14 @@
+<!--
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. GeeksforGeeks - How to set float input type in HTML5 - https://www.geeksforgeeks.org/how-to-set-float-input-type-in-html5/
+-->
+
+<!-- Include jQuery library -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<!-- Page header and navigation links -->
 <header>
     <h1>Kapow! Comics - Sales</h1>
 </header>
@@ -12,7 +21,7 @@
     <a href="salesDetails">Sales Details</a>
 </nav>
 
-{{!-- Create the Sales table --}}
+<!-- Sales table -->
 <table id="sales-table">
 
     <thead>
@@ -40,6 +49,7 @@
     </tbody>
 </table>
 
+<!-- Sale search form -->
 <h2>Search for a Sale</h2>
 <p>Search by sale ID using the field below!</p>
 <form id="search-sale_id-html" method='GET' action='/sales'>
@@ -50,14 +60,15 @@
     <a href='/sales'><button>Reset</button></a>
 </form>
 
-{{!-- Form to add a new Sale to the table. CS340 starter code was changed here make it so that revenue input accepted decimal values and didn't round them before they made their way to the database. Also implemented dropdown for customer --}}
+<!-- Add new sale form -->
 <h2>Add a New Sale</h2>
 <p>To add new a new sale, please enter the information below and click 'Submit'!</p>
 
 <form id="add-sale-form-ajax">
 
     <label for="input-revenue">Sale Revenue (USD): </label>
-    <input type="number" step="0.01"name="input-revenue" id="input-revenue"><br><br>
+    <input type="number" step="0.01"name="input-revenue" id="input-revenue"><!-- This line is adapted from https://www.geeksforgeeks.org/how-to-set-float-input-type-in-html5/ -->
+    <br><br>
 
     <label for="input-customer_id">Customer Name: </label>
     <select name="input-customer_id" id="input-customer_id">
@@ -70,6 +81,6 @@
     <input type="submit" class="btn">
 </form>
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX requests for ADD and DELETE --}}
+<!-- Include JavaScript files for adding and deleting sales -->
 <script src="./js/add_sale.js"></script>
 <script src="./js/delete_sale.js"></script>

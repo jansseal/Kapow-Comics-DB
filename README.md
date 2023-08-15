@@ -72,3 +72,4 @@ Kapow! Comics is a medium-sized comic book store facing challenges in managing s
 - [W3Schools - Input Type "tel"](https://www.w3schools.com/tags/att_input_type_tel.asp)
 - [LinuxHint - Parsing Float with Two Decimal Places in JavaScript](https://linuxhint.com/parse-float-with-two-decimal-places-javascript/)
 - [W3Schools - `setTimeout()` Method](https://www.w3schools.com/jsref/met_win_settimeout.asp)
+- [GeeksforGeeks - How to set float input type in HTML5](https://www.geeksforgeeks.org/how-to-set-float-input-type-in-html5/)

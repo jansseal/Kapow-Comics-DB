@@ -1,6 +1,14 @@
+<!--
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. GeeksforGeeks - How to set float input type in HTML5 - https://www.geeksforgeeks.org/how-to-set-float-input-type-in-html5/
+-->
+
+<!-- Include jQuery library -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<!-- index.hbs -->
+<!-- Page header and navigation links -->
 <header>
     <h1>Kapow! Comics - Sales Details</h1>
 </header>
@@ -13,14 +21,10 @@
     <a href="salesDetails">Sales Details</a>
 </nav>
 
-{{!-- Create a table --}}
+<!-- Sales Details table -->
 <table id="salesDetails-table">
 
-    {{!-- Header section --}}
     <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
             <th>Invoice ID</th>
             <th>Sale ID</th>
@@ -31,10 +35,8 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
         {{#each data}}
         <tr data-value={{this.invoice_id}}>
             <td>{{this.invoice_id}}</td>
@@ -49,7 +51,7 @@
     </tbody>
 </table>
 
-
+<!-- Sale Details search form -->
 <h2>Search for Sales Details</h2>
 <p>Search by invoice ID using the field below!</p>
 <form id="search-invoice_id-html" method='GET' action='/salesDetails'>
@@ -62,11 +64,9 @@
 
 
 
-{{!-- Form to add new Sales Details to the table  --}}
+<!-- Add new sale details form -->
 <h2>Add Sales Details</h2>
 <p>To add new sale details, please enter the information below and click 'Submit'!</p>
-
-
 
 <form id="add-saleDetails-form-ajax">
 
@@ -87,7 +87,8 @@
     </select><br><br>
 
     <label for="input-price">Unit Price (USD): </label>
-    <input type="number" step="0.01" name="input-price" id="input-price"><br><br>
+    <input type="number" step="0.01" name="input-price" id="input-price"><!-- This line is adapted from https://www.geeksforgeeks.org/how-to-set-float-input-type-in-html5/ -->
+    <br><br>
 
     <label for="input-quantity">Quantity: </label>
     <input type="number" name="input-quantity" id="input-quantity"><br><br>
@@ -95,6 +96,7 @@
     <input type="submit" class="btn">
 </form>
 
+<!-- Update a sale's details form -->
 <h2>Update Sales Details</h2>
 <p>To update a specific invoice's sales details, use the drop-down menu below to select the appropriate invoice, then use the other drop-downs and input fields to update the information.</p>
 <form id="update-invoice-form-ajax">
@@ -124,7 +126,8 @@
     </select><br><br>
     
     <label for="input-price-update">Unit Price (USD): </label>
-    <input type="number" step="0.01" name="input-price-update" id="input-price-update"><br><br>
+    <input type="number" step="0.01" name="input-price-update" id="input-price-update"><!-- This line is adapted from https://www.geeksforgeeks.org/how-to-set-float-input-type-in-html5/ -->
+    <br><br>
 
     <label for="input-quantity-update">Quantity: </label>
     <input type="number" name="input-quantity-update" id="input-quantity-update"><br><br>
@@ -133,7 +136,7 @@
 
 </form>
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<!-- Include JavaScript files for adding, deleting, and updating sale details -->
 <script src="./js/add_saleDetails.js"></script>
 <script src="./js/delete_saleDetails.js"></script>
 <script src="./js/update_salesDetails.js"></script>

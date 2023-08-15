@@ -1,5 +1,14 @@
+<!--
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. W3Schools - Input Type "tel" - https://www.w3schools.com/tags/att_input_type_tel.asp
+-->
+
+<!-- Include jQuery library -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<!-- Page header and navigation links -->
 <header>
     <h1>Kapow! Comics - Customers</h1>
 </header>
@@ -12,7 +21,7 @@
     <a href="salesDetails">Sales Details</a>
 </nav>
 
-{{!-- Create the Customers table --}}
+<!-- Customers table -->
 <table id="customers-table">
 
     <thead>
@@ -26,7 +35,6 @@
 
     <tbody>
 
-        {{!-- For each row, print the customer_id, customer_name, customer_email, and customer_phone, in order --}}
         {{#each data}}
         <tr data-value={{this.customer_id}}>
             <td>{{this.customer_id}}</td>
@@ -39,6 +47,7 @@
     </tbody>
 </table>
 
+<!-- Customer search form -->
 <h2>Search for a Customer</h2>
 <p>Search by the customer's name using the field below! Begin with their first name.</p>
 <form id="search-customer-html" method='GET' action='/customers'>
@@ -49,7 +58,7 @@
     <a href='/customers'><button>Reset</button></a>
 </form>
 
-{{!-- Form to add a new Customer to the table. CS340 starter code was changed here to incorporate input field constraints to limit user input.  --}}
+<!-- Add new customer form -->
 <h2>Add a New Customer</h2>
 <p>To add a new customer, please enter their information below and click 'Submit'!</p>
 
@@ -62,9 +71,11 @@
     <input type="text" name="input-email" id="input-email"><br><br>
 
     <label for="input-phone">Phone Number: </label>
-    <input type="tel" name="input-phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="###-###-####"><br><br>
+    <input type="tel" name="input-phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="###-###-####"><!-- This line is adapted from https://www.w3schools.com/tags/att_input_type_tel.asp -->
+    <br><br>
 
     <input type="submit" class="btn">
 </form>
 
+<!-- Include JavaScript file for adding customers -->
 <script src="./js/add_customer.js"></script>

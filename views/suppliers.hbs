@@ -1,6 +1,14 @@
+<!--
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. W3Schools - Input Type "tel" - https://www.w3schools.com/tags/att_input_type_tel.asp
+-->
+
+<!-- Include jQuery library -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<!-- suppliers.hbs -->
+<!-- Page header and navigation links -->
 <header>
     <h1>Kapow! Comics - Suppliers</h1>
 </header>
@@ -13,10 +21,9 @@
     <a href="salesDetails">Sales Details</a>
 </nav>
 
-{{!-- Create the Suppliers table --}}
+<!-- Suppliers table -->
 <table id="suppliers-table">
 
-    {{!-- Header section --}}
     <thead>
         <tr>
             <th>Supplier ID</th>
@@ -28,10 +35,8 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the supplier_id, supplier_name, supplier_email, supplier_phone, supplier_city, and supplier_state, in order --}}
         {{#each data}}
         <tr data-value={{this.supplier_id}}>
             <td>{{this.supplier_id}}</td>
@@ -46,7 +51,7 @@
     </tbody>
 </table>
 
-
+<!-- Supplier search form -->
 <h2>Search for a Supplier</h2>
 <p>Search by supplier ID using the field below!</p>
 <form id="search-supplier_id-html" method='GET' action='/suppliers'>
@@ -60,7 +65,7 @@
 
 
 
-{{!-- Form to add a new Supplier to the table. CS340 starter code was changed here to incorporate input field constraints to limit user input.  --}}
+<!-- Add new supplier form -->
 <h2>Add a New Supplier</h2>
 <p>To add new supplier, please enter the information below and click 'Submit'!</p>
 
@@ -75,7 +80,8 @@
     <input type="text" name="input-supplier_email" id="input-supplier_email"><br><br>
 
     <label for="input-supplier_phone">Primary Contact Phone Number: </label>
-    <input type="tel" name="input-supplier_phone" id="input-supplier_phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="###-###-####"><br><br>
+    <input type="tel" name="input-supplier_phone" id="input-supplier_phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="###-###-####"><!-- This line is adapted from https://www.w3schools.com/tags/att_input_type_tel.asp -->
+    <br><br>
 
     <label for="input-supplier_city">Location City: </label>
     <input type="text" name="input-supplier_city" id="input-supplier_city"><br><br>
@@ -139,5 +145,5 @@
     <input type="submit" class="btn">
 </form>
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request for ADD --}}
+<!-- Include JavaScript files for adding suppliers -->
 <script src="./js/add_suppliers.js"></script>
