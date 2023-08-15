@@ -1,41 +1,46 @@
-// Get the objects we need to modify
+/*
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. LinuxHint - Parsing Float with Two Decimal Places in JavaScript - https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
+*/
+
+// Get the form element for adding sales
 let addSaleForm = document.getElementById('add-sale-form-ajax');
 
-// Modify the objects we need
+// Listen for form submission
 addSaleForm.addEventListener("submit", function (e) {
     
-    // Prevent the form from submitting
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Get form fields we need to get data from
+    // Get input fields
     let inputSaleRevenue = document.getElementById("input-revenue");
     let inputCustomerId = document.getElementById("input-customer_id");
 
-    // Get the values from the form fields
+    // Get input values
     let SaleRevenueValue = inputSaleRevenue.value;
     let CustomerIdValue = inputCustomerId.value;
 
-    // Put our data we want to send in a javascript object
+    // Create a data object
     let data = {
         sale_revenue: SaleRevenueValue,
         customer_id:  CustomerIdValue
     }
     
-    // Setup our AJAX request
+    // Setup an AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-sale-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Define how to handle an AJAX response
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
+            // Add the new sale data to the table
             addRowToTable(xhttp.response);
-
             location.reload();
 
-            // Clear the input fields for another transaction
+            // Clear input fields for another entry
             inputSaleRevenue.value = '';
             inputCustomerId.value = '';
         }
@@ -44,59 +49,58 @@ addSaleForm.addEventListener("submit", function (e) {
         }
     }
 
-    // Send the request and wait for the response
+    // Send the request and data
     xhttp.send(JSON.stringify(data));
 
 })
 
-
-// Creates a single row from an Object representing a single record from 
-// Sales
+// Function to add a row to the table
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+    // Get a reference to the table
     let currentTable = document.getElementById("sales-table");
 
-    // Get the location where we should insert the new row (end of table)
+    // Calculate the new row index
     let newRowIndex = currentTable.rows.length;
 
-    // Get a reference to the new row from the database query (last object)
+    // Parse the response data
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create row elements and cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
     let revenueCell = document.createElement("TD");
     let dateCell = document.createElement("TD");
     let customerCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
 
-    // Fill the cells with correct data. Price cell is set to be formatted as a decimal value.
+    // Fill cells with data
     idCell.innerText = newRow.sale_id;
-    revenueCell.innerText = newRow.sale_revenue.toFixed(2);
+    revenueCell.innerText = newRow.sale_revenue.toFixed(2); // This line is adapted from https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
     dateCell.innerText = newRow.sale_date;
     customerCell.innerText = newRow.customer_id;
 
+    // Create delete button
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteSaleDetails(newRow.sale_id);
+        deleteSale(newRow.sale_id);
     };
     
-    // Add the cells to the row 
+    // Append cells to row
     row.appendChild(idCell);
     row.appendChild(revenueCell);
     row.appendChild(dateCell);
     row.appendChild(customerCell);
 
-    // Add a row attribute so the deleteRow function can find a newly added row
+    // Set row attribute
     row.setAttribute('data-value', newRow.sale_id);
 
-    // Add the row to the table
+    // Append row to the table
     currentTable.appendChild(row);
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    // Update dropdown menu
     let selectMenu = document.getElementById("input-customer_id");
     let option = document.createElement("option");
     option.text = newRow.sale_id;
