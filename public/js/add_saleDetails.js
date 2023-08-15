@@ -1,26 +1,32 @@
-// Get the objects we need to modify
+/*
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. LinuxHint - Parsing Float with Two Decimal Places in JavaScript - https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
+*/
+
+// Get the form element for adding sale details
 let addSaleDetailsForm = document.getElementById('add-saleDetails-form-ajax');
 
-// Modify the objects we need
+// Listen for form submission
 addSaleDetailsForm.addEventListener("submit", function (e) {
     
-    // Prevent the form from submitting
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Get form fields we need to get data from
+    // Get input fields
     let inputSaleID = document.getElementById("input-sale_id");
     let inputProductID = document.getElementById("input-product_id");
     let inputPrice = document.getElementById("input-price");
     let inputQuantity = document.getElementById("input-quantity");
 
-    // Get the values from the form fields
+    // Get input values
     let saleIDValue = inputSaleID.value;
     let productIDValue = inputProductID.value;
     let priceValue = inputPrice.value;
     let quantityValue = inputQuantity.value;
 
 
-    // Put our data we want to send in a javascript object
+    // Create a data object
     let data = {
         sale_id: saleIDValue,
         product_id: productIDValue,
@@ -28,78 +34,75 @@ addSaleDetailsForm.addEventListener("submit", function (e) {
         quantity: quantityValue
     }
     
-    // Setup our AJAX request
+    // Setup an AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-saleDetails-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Define how to handle an AJAX response
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
+            // Add the new sale details data to the table
             addRowToTable(xhttp.response);
             location.reload();
 
-            // Clear the input fields for another transaction
+            // Clear input fields for another entry
             inputSaleID.value = '';
             inputProductID.value = '';
             inputPrice.value = '';
             inputQuantity.value = '';
             
             console.log('Page has been reloaded');
-            
-            // https://www.w3schools.com/jsref/met_win_settimeout.asp
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
 
-    // Send the request and wait for the response
+    // Send the request and data
     xhttp.send(JSON.stringify(data));
 
 })
 
 
-// Creates a single row from an Object representing a single record from 
-// Sales_has_products
+// Function to add a row to the table
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+    // Get a reference to the table
     let currentTable = document.getElementById("salesDetails-table");
 
-    // Get the location where we should insert the new row (end of table)
+    // Calculate the new row index
     let newRowIndex = currentTable.rows.length;
 
-    // Get a reference to the new row from the database query (last object)
+    // Parse the response data
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create row elements and cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
     let sidCell = document.createElement("TD");
     let pidCell = document.createElement("TD");
     let priceCell = document.createElement("TD");
     let quantityCell = document.createElement("TD");
-    
     let deleteCell = document.createElement("TD");
 
-    // Fill the cells with correct data
+    // Fill cells with data
     idCell.innerText = newRow.invoice_id;
     sidCell.innerText = newRow.sale_id;
     pidCell.innerText = newRow.product_id;
     priceCell.innerText = newRow.unit_price.toFixed(2);
     quantityCell.innerText = newRow.quantity;
 
+    // Create delete button
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
         deleteSaleDetails(newRow.invoice_id);
     };
     
-    // Add the cells to the row 
+    // Append cells to row 
     row.appendChild(idCell);
     row.appendChild(sidCell);
     row.appendChild(pidCell);
@@ -107,14 +110,13 @@ addRowToTable = (data) => {
     row.appendChild(quantityCell);
     row.appendChild(deleteCell);
 
-    // Add a row attribute so the deleteRow function can find a newly added row
+    // Set row attribute
     row.setAttribute('data-value', newRow.invoice_id);
 
-    // Add the row to the table
+    // Append row to the table
     currentTable.appendChild(row);
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    // Update dropdown menu
     let selectMenu = document.getElementById("input-invoice_id-update");
     let option = document.createElement("option");
     option.text = newRow.invoice_id;
