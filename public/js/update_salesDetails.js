@@ -24,7 +24,7 @@ updatesalesDetailsForm.addEventListener("submit", function (e) {
     let InvoiceIdValue = parseInt(inputInvoiceId.value);
     let SaleIdValue = parseInt(inputSaleId.value);
     let ProductIdValue = parseInt(inputProductId.value);
-    let UnitPriceValue = parseInt(inputPrice.value);
+    let UnitPriceValue = parseFloat(inputPrice.value);
     let InputQuantityValue = parseInt(inputQuantity.value);
     
     // currently the database table for bsg_people does not allow updating values to NULL

@@ -197,7 +197,7 @@ app.post('/add-saleDetails-ajax', function(req, res)
         let data = req.body;
         let sale_id = parseInt(data.sale_id);
         let product_id = parseInt(data.product_id);
-        let unit_price = parseInt(data.unit_price);
+        let unit_price = parseFloat(data.unit_price).toFixed(2);
         let quantity = parseInt(data.quantity);
 
         console.log("Parsed values:", sale_id, product_id, unit_price, quantity)
@@ -577,7 +577,7 @@ app.delete('/delete-saleDetails-ajax', function(req,res,next){
     let invoiceId = parseInt(data.invoice_id);
     let saleId = parseInt(data.sale_id);
     let productId = parseInt(data.product_id);
-    let unitPrice = parseInt(data.unit_price);
+    let unitPrice = parseFloat(data.unit_price).toFixed(2);
     let quantity = parseInt(data.quantity);
 
     console.log("Parsed values:",invoiceId,saleId, productId, unitPrice, quantity)

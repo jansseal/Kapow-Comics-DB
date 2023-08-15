@@ -90,7 +90,7 @@ addRowToTable = (data) => {
     idCell.innerText = newRow.invoice_id;
     sidCell.innerText = newRow.sale_id;
     pidCell.innerText = newRow.product_id;
-    priceCell.innerText = newRow.unit_price;
+    priceCell.innerText = newRow.unit_price.toFixed(2);
     quantityCell.innerText = newRow.quantity;
 
     deleteCell = document.createElement("button");
