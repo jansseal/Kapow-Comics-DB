@@ -71,9 +71,9 @@ addRowToTable = (data) => {
     let dateCell = document.createElement("TD");
     let customerCell = document.createElement("TD");
 
-    // Fill the cells with correct data
+    // Fill the cells with correct data. Price cell is set to be formatted as a decimal value.
     idCell.innerText = newRow.sale_id;
-    revenueCell.innerText = newRow.sale_revenue;
+    revenueCell.innerText = newRow.sale_revenue.toFixed(2);
     dateCell.innerText = newRow.sale_date;
     customerCell.innerText = newRow.customer_id;
 

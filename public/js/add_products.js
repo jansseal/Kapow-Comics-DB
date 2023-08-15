@@ -81,7 +81,7 @@ addRowToTable = (data) => {
     let typeCell = document.createElement("TD");
     let supplierCell = document.createElement("TD");
 
-    // Fill the cells with correct data
+    // Fill the cells with correct data. Price cell is set to be formatted as a decimal value.
     idCell.innerText = newRow.product_id;
     nameCell.innerText = newRow.product_name;
     priceCell.innerText = newRow.product_price.toFixed(2);

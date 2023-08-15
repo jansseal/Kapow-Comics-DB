@@ -334,7 +334,7 @@ app.post('/add-sale-ajax', function(req, res)
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
-        let sale_revenue = parseInt(data.sale_revenue);
+        let sale_revenue = parseFloat(data.sale_revenue).toFixed(2);
         let customer_id = parseInt(data.customer_id);
 
     console.log("Data values:", sale_revenue, customer_id)
