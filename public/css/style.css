@@ -1,5 +1,6 @@
-/* GLOBAL */
+/* GLOBAL*/
 
+/* Styling for the entire page */
 body {
     background-color: #7fb1f6;
     color: #02031d;
@@ -8,7 +9,7 @@ body {
     min-height: 100vh;
 }
 
-
+/* Styling for tables */
 table {
     text-align: center;
     vertical-align: middle;
@@ -40,7 +41,7 @@ h3 {
 }
 
 
-/* NAV BAR */
+/* Navigation bar styling */
 nav {
     text-align: left;
     font-weight: 600;
@@ -57,7 +58,7 @@ nav a:hover {
 }
 
 
-/* PAGES */
+/* Styling for buttons and page headers */
 button, .btn {
     background-color: #fff;
     color: #ee5454;
@@ -77,6 +78,7 @@ button:hover, .btn:hover {
     margin-left: 5px;
 }
 
+/* Styling for forms */
 form {
     width: 550px;
     border: 4px solid #ffc510;
@@ -84,8 +86,7 @@ form {
     margin-top: 10px;
 }
 
-
-/* FORMS */
+/* Styling for form elements */
 select,
 input[type="text"],
 input[type="date"],

@@ -2,7 +2,9 @@
    Most of the following code has been modified from the Node.js Starter App.
    Resources:
    1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   (Sourced on 8/13/2023)
    2. LinuxHint - Parsing Float with Two Decimal Places in JavaScript - https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
+   (Sourced on 8/13/2023)
 */
 
 // Get the form element for adding sales

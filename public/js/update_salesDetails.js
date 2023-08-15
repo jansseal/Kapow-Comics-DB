@@ -2,6 +2,7 @@
    Most of the following code has been modified from the Node.js Starter App.
    Resources:
    1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   (Sourced on 8/13/2023)
 */
 
 // Function to handle updating a sale's details using AJAX

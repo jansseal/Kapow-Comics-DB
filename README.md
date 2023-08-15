@@ -66,7 +66,7 @@ Kapow! Comics is a medium-sized comic book store facing challenges in managing s
 - quantity: INT, not NULL
 - Relationships: 1:M relationship with Sales, 1:M relationship with Products
 
-## Resources
+## Resources - sourced on 8/13/2023
 
 - [Node.js Starter App](https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main)
 - [W3Schools - Input Type "tel"](https://www.w3schools.com/tags/att_input_type_tel.asp)
