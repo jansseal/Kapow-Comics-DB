@@ -84,7 +84,7 @@ addRowToTable = (data) => {
     // Fill the cells with correct data
     idCell.innerText = newRow.product_id;
     nameCell.innerText = newRow.product_name;
-    priceCell.innerText = newRow.product_price;
+    priceCell.innerText = newRow.product_price.toFixed(2);
     typeCell.innerText = newRow.product_type;
     supplierCell.innerText = newRow.supplier_id;
 

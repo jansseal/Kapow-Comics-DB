@@ -1,6 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<!-- index.hbs -->
+<!-- products.hbs -->
 <header>
     <h1>Kapow! Comics - Products</h1>
 </header>
@@ -13,14 +13,10 @@
     <a href="salesDetails">Sales Details</a>
 </nav>
 
-{{!-- Create a table --}}
+{{!-- Create the Products table --}}
 <table id="products-table">
 
-    {{!-- Header section --}}
     <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
             <th>Product ID</th>
             <th>Product Name</th>
@@ -30,7 +26,6 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
     <tbody>
 
         {{!-- For each row, print the product_id, product_name, product_price, product_type, and suppiler_id, in order --}}
@@ -61,7 +56,7 @@
 
 
 
-{{!-- Form to add a record to the table  --}}
+{{!-- Form to add a new Product to the table. CS340 starter code was changed here make it so that product_price accepted decimal values and didn't round them before they made their way to the database. Also implemented dropdown for product_type and supplier  --}}
 <h2>Add a New Product</h2>
 <p>To add a new product, please enter the information below and click 'Submit'!</p>
 
@@ -71,8 +66,8 @@
     <label for="input-product_name">Product Name: </label>
     <input type="text" name="input-products_name" id="input-products_name"><br><br>
 
-    <label for="input-product_price">Current Price: </label>
-    <input type="text" name="input-products_price" id="input-products_price"><br><br>
+    <label for="input-product_price">Current Price (USD): </label>
+    <input type="number" step="0.01" name="input-products_price" id="input-products_price"><br><br>
 
     <label for="input-product_type">Product Type: </label>
     <select name="input-products_type" id="input-products_type">
@@ -94,6 +89,5 @@
     <input type="submit" class="btn">
 </form>
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request for ADD--}}
 <script src="./js/add_products.js"></script>
-<script src="./js/delete_products.js"></script>

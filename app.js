@@ -378,7 +378,7 @@ app.post('/add-products-ajax', function(req, res)
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
         let product_name = data.product_name;
-        let product_price = parseInt(data.product_price);
+        let product_price = parseFloat(data.product_price).toFixed(2);
         let product_type = data.product_type;
         let supplier_id = data.supplier_id;
 
