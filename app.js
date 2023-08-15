@@ -429,7 +429,7 @@ app.delete('/delete-sale-ajax', function(req,res,next){
   })});
 
 // Updating invoice via AJAX
-  app.put('/put-invoice-ajax', function(req, res, next) {
+app.put('/put-invoice-ajax', function(req, res, next) {
     let data = req.body;
 
     let invoiceId = parseInt(data.invoice_id);
@@ -456,24 +456,7 @@ app.delete('/delete-sale-ajax', function(req,res,next){
                     console.log(err);
                     res.sendStatus(400);
                 } else {
-                    let productmap = {};
-                    let queryGetProducts = "SELECT * FROM Products;";
-                    db.pool.query(queryGetProducts, (error, products, fields) => {
-                        if(error) {
-                            console.log(error);
-                            res.sendStatus(400);
-                        } else {
-                            products.map(product => {
-                                let id = parseInt(product.product_id, 10);
-                                productmap[id] = product["product_name"];
-                            });
-
-                            results = results.map(result => {
-                                return Object.assign(result, {product_id: productmap[result.product_id]})
-                            });
-                            res.send(results);
-                        }
-                    });
+                    res.send(results);
                 }
             });
         }

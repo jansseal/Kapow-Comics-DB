@@ -80,6 +80,7 @@ updatesalesDetailsForm.addEventListener("submit", function (e) {
 
             // Add the new data to the table
             updateRow(xhttp.response, InvoiceIdValue);
+            location.reload();
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
