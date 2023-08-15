@@ -1,26 +1,31 @@
-// Get the objects we need to modify
+/*
+   Most of the following code has been modified from the Node.js Starter App.
+   Resources:
+   1. Node.js Starter App - https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+   2. LinuxHint - Parsing Float with Two Decimal Places in JavaScript - https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
+*/
+
+// Get the form element for adding products
 let addProductsForm = document.getElementById('add-products-form-ajax');
 
-// Modify the objects we need
+// Listen for form submission
 addProductsForm.addEventListener("submit", function (e) {
     
-    // Prevent the form from submitting
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Get form fields we need to get data from
+    // Get input fields
     let inputProductName = document.getElementById("input-products_name");
     let inputProductPrice = document.getElementById("input-products_price");
     let inputProductType = document.getElementById("input-products_type");
     let inputSupplierId = document.getElementById("input-supplier_id");
 
-    // Get the values from the form fields
+    // Get input values
     let ProductNameValue = inputProductName.value;
     let ProductPriceValue = inputProductPrice.value;
     let ProductTypeValue = inputProductType.value;
     let SupplierIdValue = inputSupplierId.value;
 
-
-    // Put our data we want to send in a javascript object
+    // Create a data object
     let data = {
 
         product_name: ProductNameValue,
@@ -29,20 +34,20 @@ addProductsForm.addEventListener("submit", function (e) {
         supplier_id:  SupplierIdValue
     }
     
-    // Setup our AJAX request
+    // Setup an AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-products-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Define how to handle AJAX response
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
+            // Add the new product data to the table
             addRowToTable(xhttp.response);
             location.reload();
 
-            // Clear the input fields for another transaction
+            // Clear input fields for another entry
             inputProductName.value = '';
             inputProductPrice.value = '';
             inputProductType.value = '';
@@ -53,27 +58,25 @@ addProductsForm.addEventListener("submit", function (e) {
         }
     }
 
-    // Send the request and wait for the response
+    // Send the request and data
     xhttp.send(JSON.stringify(data));
 
 })
 
-
-// Creates a single row from an Object representing a single record from 
-// Products
+// Function to add a row to the table
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+    // Get a reference to the table
     let currentTable = document.getElementById("products-table");
 
-    // Get the location where we should insert the new row (end of table)
+    // Calculate the new row index
     let newRowIndex = currentTable.rows.length;
 
-    // Get a reference to the new row from the database query (last object)
+    // Parse the response data
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create row elements and cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
@@ -81,34 +84,26 @@ addRowToTable = (data) => {
     let typeCell = document.createElement("TD");
     let supplierCell = document.createElement("TD");
 
-    // Fill the cells with correct data. Price cell is set to be formatted as a decimal value.
     idCell.innerText = newRow.product_id;
     nameCell.innerText = newRow.product_name;
-    priceCell.innerText = newRow.product_price.toFixed(2);
+    priceCell.innerText = newRow.product_price.toFixed(2);  // This line is adapted from https://linuxhint.com/parse-float-with-two-decimal-places-javascript/
     typeCell.innerText = newRow.product_type;
     supplierCell.innerText = newRow.supplier_id;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
-        deleteProduct(newRow.product_id);
-    };
-    
-    // Add the cells to the row 
+    // Append cells to row
     row.appendChild(idCell);
     row.appendChild(nameCell);
     row.appendChild(priceCell);
     row.appendChild(typeCell);
     row.appendChild(supplierCell);
 
-    // Add a row attribute so the deleteRow function can find a newly added row
+    // Set row attribute
     row.setAttribute('data-value', newRow.product_id);
 
-    // Add the row to the table
+    // Append row to the table
     currentTable.appendChild(row);
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    // Update dropdown menu
     let selectMenu = document.getElementById("input-supplier_id");
     let option = document.createElement("option");
     option.text = newRow.product_id;
