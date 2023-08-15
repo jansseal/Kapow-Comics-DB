@@ -12,14 +12,10 @@
     <a href="salesDetails">Sales Details</a>
 </nav>
 
-{{!-- Create a table --}}
+{{!-- Create the Customers table --}}
 <table id="customers-table">
 
-    {{!-- Header section --}}
     <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
             <th>Customer ID</th>
             <th>Full Name</th>
@@ -28,10 +24,9 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the sale_id, product_id, unit_price, and quantity, in order --}}
+        {{!-- For each row, print the customer_id, customer_name, customer_email, and customer_phone, in order --}}
         {{#each data}}
         <tr data-value={{this.customer_id}}>
             <td>{{this.customer_id}}</td>
@@ -54,7 +49,7 @@
     <a href='/customers'><button>Reset</button></a>
 </form>
 
-{{!-- Form to add a record to the table  --}}
+{{!-- Form to add a new Customer to the table. CS340 starter code was changed here to incorporate input field constraints to limit user input.  --}}
 <h2>Add a New Customer</h2>
 <p>To add a new customer, please enter their information below and click 'Submit'!</p>
 
@@ -67,10 +62,9 @@
     <input type="text" name="input-email" id="input-email"><br><br>
 
     <label for="input-phone">Phone Number: </label>
-    <input type="text" name="input-phone" id="input-phone"><br><br>
+    <input type="tel" name="input-phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="###-###-####"><br><br>
 
     <input type="submit" class="btn">
 </form>
 
 <script src="./js/add_customer.js"></script>
-<script src="./js/delete_customer.js"></script>
